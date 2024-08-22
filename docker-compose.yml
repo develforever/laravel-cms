@@ -1,0 +1,40 @@
+services:
+  frankenphp:
+    build:
+      context: .
+    ports:
+      - "8000:80" # HTTP
+      - "8443:443" # HTTPS
+      - "8443:443/udp" # HTTP/3
+    volumes:
+      - .:/app
+      - caddy_data:/data
+      - caddy_config:/config
+    # comment the following line in production, it allows to have nice human-readable logs in dev
+    tty: true
+    networks:
+      - cms
+
+  mysqldb:
+    image: mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    networks:
+      - cms
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - cms
+
+networks:
+  cms: 
+volumes:
+  caddy_data:
+  caddy_config:
