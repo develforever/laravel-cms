@@ -1,4 +1,8 @@
 @extends('layouts.panel')
 @section('content')
-login panel
+<form method="POST" action="/panel/auth">
+    @csrf
+ 
+    ...
+</form>
 @endsection

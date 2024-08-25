@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\panel\LoginController as PanelLoginController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +19,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     
-    return view('welcome');
-});
+    $user = Auth::user();
+ 
+    $id = Auth::id();
 
-Route::get('/login', LoginController::class);
+    return view('welcome', ['user' => $id]);
+})->name('home');
+
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/auth', [LoginController::class, 'auth'])->name('auth');
+
+Route::prefix('panel')->group(function () {
+    Route::get('/login', [PanelLoginController::class, 'login']);
+    Route::post('/auth', [PanelLoginController::class, 'auth']);
+})->name('panel_login');
