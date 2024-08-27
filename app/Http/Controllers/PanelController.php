@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\panel;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class IndexController extends Controller
+class PanelController extends Controller
 {
     
     public function index(Request $request){

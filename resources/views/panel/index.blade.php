@@ -1,3 +1,6 @@
+@extends( $app_layout)
+@section('content')
 <div>
-    index
+    <x-panel.menu></x-panel.menu>
 </div>
+@endsection

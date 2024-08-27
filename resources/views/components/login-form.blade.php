@@ -1,6 +1,4 @@
 <div>
-    @extends('layouts.app')
-    @section('content')
 
     <form method="POST" action="/auth">
         @csrf
@@ -26,5 +24,5 @@
         <button type="submit">Sign in</button>
     </form>
 
-    @endsection
+
 </div>
