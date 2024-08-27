@@ -27,6 +27,8 @@ services:
       MYSQL_ROOT_PASSWORD: example
     networks:
       - cms
+    volumes:
+      - mysql_data:/var/lib/mysql
 
   adminer:
     image: adminer
@@ -42,3 +44,4 @@ networks:
 volumes:
   caddy_data:
   caddy_config:
+  mysql_data: 
