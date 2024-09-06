@@ -12,19 +12,11 @@ class App extends React.Component {
     }
 
     componentDidMount(...arg){
-console.log('update', arg);
+        console.log('update', arg);
     }
 
     render() {
 
-
-        console.log('app', this);
-        // {
-        //     value: (context) => {
-
-        //         return React.createElement('div', null, `Hello ${context.user.username}`)
-        //     }
-        // }
 
         return React.createElement(AppContext.Consumer,
             null,

@@ -1,8 +1,9 @@
 
 
 import App from "app/App.mjs";
-import Modal from "app/Modal.mjs";
+import Modals from "app/Modals.mjs";
 import AppContext from "app/AppContext.mjs";
+import uuidv4 from 'uuid-v4';
 
 
 class AppProvider extends React.Component {
@@ -15,20 +16,44 @@ class AppProvider extends React.Component {
             user: {
                 username: "admin"
             },
-            updateUser: (user) => {
-                console.log('updateUser', this, user)
+            modals: [],
+            addModal: (modalConfig) => {
+                let modals = [...this.state.modals];
+                modalConfig.id = uuidv4();
+                modals.push(modalConfig);
                 this.setState({
-                    user: {
-                        username: "admin 2"
-                    }
+                    modals
+                });
+            },
+            removeModal: (id) => {
+                let modals = [...this.state.modals];
+                
+                let index = modals.findIndex((e)=>e.id==id);
+                if(index !==-1){
+                    modals.splice(index, 1);
+                }
+
+                this.setState({
+                    modals
+                });
+            },
+            updateUser: (user) => {
+                this.setState({
+                    user: user
                 });
             }
         }
 
     }
 
-    componentDidMount(){
-        setTimeout(this.state.updateUser, 1000, "admin 2");
+    componentDidMount() {
+        setTimeout(this.state.updateUser, 1000, {
+            username: "admin 2"
+        });
+
+        setTimeout(this.state.addModal, 2000, {
+            title: "Modal 1"
+        });
     }
 
     render() {
@@ -37,7 +62,7 @@ class AppProvider extends React.Component {
             value: this.state
         }, [
             React.createElement(App, { key: "app" }),
-            React.createElement(Modal, { key: "modal" })
+            React.createElement(Modals, { key: "modal" })
         ]);
 
     }
