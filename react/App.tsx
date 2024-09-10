@@ -7,7 +7,9 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { date: new Date() };
+        this.state = { 
+            
+         };
 
     }
 
