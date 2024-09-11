@@ -3,7 +3,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { createRoot } from 'react-dom/client';
 import { v4 as uuidv4 } from 'uuid';
+import {
+    createBrowserRouter,
+    createHashRouter,
+    RouterProvider,
+    useRouteError,
+} from "react-router-dom";
 
+// app
 import App from "@app/App";
 import Modals from "@app/Modals";
 import AppContext from "@app/AppContext";
@@ -34,7 +41,7 @@ export type AppState = {
     getModals: Function
 }
 
-function AppProvider() {
+function Root() {
 
     const [state, setState] = useState<AppState>({
         modals: [],
@@ -44,7 +51,7 @@ function AppProvider() {
                 return { ...state, user: user }
             });
         },
-        addModal(modalConfig) {
+        addModal(modalConfig: ModalConfig) {
             let tmp = state.modals ? [...state.modals] : [];
             modalConfig.id = uuidv4();
             tmp.push(modalConfig);
@@ -55,7 +62,6 @@ function AppProvider() {
         },
         removeModal(id: string) {
 
-            // todo modalconfig type ?
             let tmp: ModalConfig[] = state.modals ? [...state.modals] : [];
 
             let index = tmp.findIndex((e) => e.id == id);
@@ -77,35 +83,53 @@ function AppProvider() {
 
     useEffect(() => {
 
-        console.log('useeffect');
+        // state.updateUser({
+        //     username: "admin 2"
+        // });
 
-        state.updateUser({
-            username: "admin 2"
-        });
-
-        state.addModal({
-            title: "Modal 1"
-        });
+        // state.addModal({
+        //     title: "Modal 1"
+        // });
 
     }, []);
 
     return <>
-        <React.StrictMode>
-            <AppContext.Provider value={state}>
-                <App key="app"></App>
-                <Modals key="modal"></Modals>
-            </AppContext.Provider>
-        </React.StrictMode>
+        <AppContext.Provider value={state}>
+            <App key="app"></App>
+            <Modals key="modal"></Modals>
+        </AppContext.Provider>
     </>
 
 }
 
-let strictMode = React.createElement(React.StrictMode, null, React.createElement(AppProvider));
-
-
+function ErrorPage() {
+    const error = useRouteError();
+    console.error(error);
+  
+    return (
+      <div id="error-page">
+        <h1>Oops!</h1>
+        <p>Sorry, an unexpected error has occurred.</p>
+        <p>
+          <i>{error.statusText || error.message}</i>
+        </p>
+      </div>
+    );
+  }
 
 export default function () {
 
     const root = createRoot(document.getElementById('root'));
-    root.render(strictMode);
+
+    const router = createHashRouter([
+        {
+            path: "/",
+            element: <Root></Root>,
+            errorElement: <ErrorPage />,
+        },
+    ]);
+
+    root.render(<React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>);
 }
