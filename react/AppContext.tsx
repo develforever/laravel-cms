@@ -1,5 +1,6 @@
-import React from "react";
+import { createContext } from "react";
 
-const AppContext = React.createContext(null);
+
+const AppContext = createContext(null);
 AppContext.displayName = "AppContext";
 export default AppContext;

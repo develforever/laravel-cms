@@ -1,34 +1,16 @@
 
-import React from "react";
+import React, { Component, useContext, useEffect } from "react";
 import AppContext from "@app/AppContext";
 
-class App extends React.Component {
+function App() {
 
-    static contextType = AppContext;
+    const context = useContext(AppContext);
 
-    constructor(props) {
-        super(props);
-        this.state = { 
-            
-         };
+    return <div className="app">
+    <p>{context.user?.username}</p>
+    </div>
 
-    }
-
-    componentDidMount(...arg){
-        console.log('update', arg);
-    }
-
-    render() {
-
-
-        return React.createElement(AppContext.Consumer,
-            null,
-            (context) => {
-                return React.createElement('div', null, `Hello ${context.user.username}`)
-            }
-        );
-
-    }
 }
+
 
 export default App

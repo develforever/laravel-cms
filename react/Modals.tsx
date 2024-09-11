@@ -1,30 +1,25 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import AppContext from "@app/AppContext";
 import Modal from "@app/Modal";
+import { ModalConfig } from "./root";
 
 
-class Modals extends React.Component {
+function Modals() {
 
-    static contextType = AppContext;
+    const context = useContext(AppContext);
 
-    constructor(props) {
-        super(props);
-        this.state = {  };
-    }
+    let key = 1;
+    let children = [];
 
+    context.modals.forEach((conf) => {
+        conf.key = key++;
+        children.push(<Modal  key={conf.key} conf={conf}></Modal>);
+    });
 
-    render() {
+    return <>
+        {children}
+    </>
 
-        let key = 1;
-        let children = [];
-
-        this.context.modals.forEach((conf)=>{
-            conf.key = key++;
-            children.push(React.createElement(Modal, conf));
-        });
-
-        return React.createElement('div', null, children);
-    }
 }
 
 export default Modals
