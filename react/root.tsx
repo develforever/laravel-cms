@@ -3,43 +3,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { createRoot } from 'react-dom/client';
 import { v4 as uuidv4 } from 'uuid';
-import {
-    createBrowserRouter,
-    createHashRouter,
-    RouterProvider,
-    useRouteError,
-} from "react-router-dom";
 
 // app
 import App from "@app/App";
 import Modals from "@app/Modals";
 import AppContext from "@app/AppContext";
-import * as bootstrapcss from "./css/bootstrap.css";
-import * as css from "./css/app.css";
+import * as bootstrapcss from "@app/css/bootstrap.css";
+import * as css from "@app/css/app.css";
+import { AppState, ModalConfig, User } from "./Types/AppTypes";
 
 bootstrapcss;
 css;
 
-export type User = {
-    username: string
-}
-export type ModalConfig = {
-    // todo maybe uuid type
-    id: string,
-    key: any
-}
-
-export type AppState = {
-    user: null | User,
-    modals: ModalConfig[],
-
-    // functions
-    updateUser: Function,
-    addModal: Function,
-    removeModal: Function,
-    getUser: Function,
-    getModals: Function
-}
 
 function Root() {
 
@@ -102,34 +77,13 @@ function Root() {
 
 }
 
-function ErrorPage() {
-    const error = useRouteError();
-    console.error(error);
-  
-    return (
-      <div id="error-page">
-        <h1>Oops!</h1>
-        <p>Sorry, an unexpected error has occurred.</p>
-        <p>
-          <i>{error.statusText || error.message}</i>
-        </p>
-      </div>
-    );
-  }
+
+
+const root = createRoot(document.getElementById('root'));
 
 export default function () {
 
-    const root = createRoot(document.getElementById('root'));
-
-    const router = createHashRouter([
-        {
-            path: "/",
-            element: <Root></Root>,
-            errorElement: <ErrorPage />,
-        },
-    ]);
-
     root.render(<React.StrictMode>
-        <RouterProvider router={router} />
+        <Root></Root>
     </React.StrictMode>);
 }
