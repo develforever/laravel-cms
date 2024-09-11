@@ -8,9 +8,6 @@
 
     <title>Panel - {{ $app_name }}</title>
 
-    @include('shared.imports')
-    @include('shared.react')
-    @include('shared.styles')
     
 </head>
 
@@ -19,7 +16,7 @@
         @yield('content')
     </div>
 
-    @include('shared.appjs')
+    @include('shared.js')
 </body>
 
 </html>

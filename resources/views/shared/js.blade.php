@@ -1,4 +1,4 @@
 <script type="module">
-    import app from 'app/root.mjs';
+    import app from './js/root.js';
     app();
 </script>

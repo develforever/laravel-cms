@@ -1,5 +1,6 @@
-import AppContext from "app/AppContext.mjs";
-import Modal from "app/Modal.mjs";
+import React from "react";
+import AppContext from "@app/AppContext";
+import Modal from "@app/Modal";
 
 
 class Modals extends React.Component {
