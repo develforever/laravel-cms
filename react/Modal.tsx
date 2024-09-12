@@ -1,21 +1,14 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import AppContext from "@app/AppContext";
 
-class Modal extends React.Component {
+function Modal(props) {
 
-    static modalClassOpen = 'modal show d-block';
-    static modalClassClose =  'modal';
+    const modalClassOpen = 'modal show d-block';
+    const modalClassClose =  'modal';
+    const context = useContext(AppContext);
 
-    static contextType = AppContext;
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            modalClass:  Modal.modalClassOpen
-            
-        };
-        this.onCloseClick = this.onCloseClick.bind(this);
-    }
+    const [state, setState] = useState;
+    this.onCloseClick = this.onCloseClick.bind(this);
 
     onCloseClick() {
         this.setState({

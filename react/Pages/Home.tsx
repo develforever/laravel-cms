@@ -8,7 +8,7 @@ function Home (){
 
     return <>   
         <Layout >
-           <div >new center</div> 
+           <div>new center</div> 
            <div>cos tam</div>
         </Layout>
     </>
