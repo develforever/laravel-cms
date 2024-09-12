@@ -1,50 +1,72 @@
 import React, { useContext, useState } from "react";
 import AppContext from "@app/AppContext";
 
-function Modal(props) {
+export interface ModalProps {
+    id: string;
+    title?:string;
+    onCancel?: () => void;
+    onOk?: () => void;
+    onClose?: () => void;
+}
 
-    const modalClassOpen = 'modal show d-block';
-    const modalClassClose =  'modal';
+const MODAL_CLASS_OPEN = 'modal show d-block';
+const MODAL_CLASS_CLOSE = 'modal';
+
+const Modal: React.FC<ModalProps> = ({ id, title, onCancel, onClose, onOk, ...arg }) => {
+
     const context = useContext(AppContext);
 
-    const [state, setState] = useState;
-    this.onCloseClick = this.onCloseClick.bind(this);
+    const [state, setState] = useState({
+        modalClass: MODAL_CLASS_OPEN
+    });
 
-    onCloseClick() {
-        this.setState({
-            modalClass: Modal.modalClassClose
+    function close() {
+        setState((state) => {
+            context.removeModal(id);
+            return {
+                ...state,
+                modalClass: MODAL_CLASS_CLOSE
+            };
         });
-
-        this.context.removeModal(this.props.id);
     }
 
-    render() {
+    function onCloseBtn() {
 
-        let key = 1;
+        onClose? onClose() : null;
 
-        return React.createElement('div', { className: this.state.modalClass },
-            React.createElement('div', null,
-                React.createElement('div', { className: 'modal-dialog' },
-                    React.createElement('div', { className: 'modal-content' }, [
-                        React.createElement('div', { className: 'modal-header', key: key++ },
-                            [
-                                React.createElement('h5', { className: 'modal-title', key: key++ }),
-                                React.createElement('button', { className: 'btn-close', onClick: this.onCloseClick, key: key++ })
-                            ]
-                        ),
-                        React.createElement('div', { className: 'modal-body', key: key++ }, [
-                            React.createElement('p', { key: key++ }, 'modal body')
-                        ]),
-                        React.createElement('div', { className: 'modal-footer', key: key++ }, [
-                            React.createElement('button', { className: 'btn btn-secondary', key: key++ }, 'Close'),
-                            React.createElement('button', { className: 'btn btn-primary', key: key++ }, 'Confirm')
-                        ])
-                    ]
-                    )
-                )
-            )
-        );
+        close();
     }
+
+    function onCancelBtn() {
+
+        onCancel ? onCancel() : null;
+        close();
+    }
+
+    function onOkBtn() {
+
+        onOk ? onOk() : null;
+        close();
+    }
+
+    return <div className={state.modalClass} tabIndex={-1}>
+        <div className="modal-dialog modal-xl">
+            <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title">Modal title</h5>
+                    <button type="button" className="btn-close" onClick={onCloseBtn} data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" onClick={onCancelBtn} data-bs-dismiss="modal">Close</button>
+                    <button type="button" className="btn btn-primary" onClick={onOkBtn}>Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
+
 
 export default Modal

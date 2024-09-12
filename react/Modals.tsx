@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect } from "react";
+import React, { createElement, ReactElement, useContext, useEffect } from "react";
 import AppContext from "@app/AppContext";
 import Modal from "@app/Modal";
 import { ModalConfig } from "./Types/AppTypes";
@@ -13,7 +13,10 @@ function Modals() {
 
     context?.modals.forEach((conf:ModalConfig) => {
         conf.key = key++;
-        children.push(<Modal  key={conf.key} conf={conf}></Modal>);
+        
+        let tmp = createElement(Modal, conf);
+
+        children.push(tmp);
     });
 
     return <>

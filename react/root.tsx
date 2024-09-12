@@ -11,6 +11,7 @@ import AppContext from "@app/AppContext";
 import * as bootstrapcss from "@app/css/bootstrap.css";
 import * as css from "@app/css/app.css";
 import { AppState, ModalConfig, User } from "./Types/AppTypes";
+import { ModalProps } from "./Modal";
 
 bootstrapcss;
 css;
@@ -63,8 +64,17 @@ function Root() {
         // });
 
         // state.addModal({
-        //     title: "Modal 1"
-        // });
+        //     title: "Modal my title",
+        //     onClose: ()=>{
+        //         console.log("modal close listener");
+        //     },
+        //     onOk: ()=>{
+        //         console.log("modal ok listener");
+        //     },
+        //     onCancel: ()=>{
+        //         console.log("modal cancel listener");
+        //     }
+        // } as ModalProps);
 
     }, []);
 

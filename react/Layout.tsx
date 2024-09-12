@@ -57,9 +57,9 @@ function Layout(props) {
     return <div className="d-flex flex-column w-100 h-100">
         <Top>{top}</Top>
         <div className="d-flex flex-fill">
-            <Left className="flex-fill">{left}</Left>
-            <Center className="flex-fill">{center}</Center>
-            <Right className="flex-fill">{right}</Right>
+            <Left className="flex-shrink-1 bg-dark-subtle">{left}</Left>
+            <Center className="flex-fill flex-grow-1">{center}</Center>
+            <Right className="flex-shrink-1">{right}</Right>
         </div>
         <Bottom>{bottom}</Bottom>
         {rest}
