@@ -1,4 +1,5 @@
 import React from "react";
+import { Config } from "./Layout/Settings";
 
 function Top(props) {
     return <div className={props.className}>{props.children}</div>;
@@ -25,13 +26,14 @@ export enum SlotNames {
     Right = "right"
 }
 
+
 function Layout(props) {
 
-    let top = <div>top menu</div>
-    let bottom = <div>bottom menu</div>
-    let left = <div>left</div>
-    let center = <div>center</div>
-    let right = <div>right</div>
+    let top = Config.getDefaultTopComp();
+    let bottom = Config.getDefaultBottomComp();
+    let left = Config.getDefaultLeftComp();
+    let center = Config.getDefaultCenterComp();
+    let right = Config.getDefaultRightComp();
     let rest: React.ReactElement[] = [];
 
     React.Children.forEach<React.ReactElement>(props.children, (child) => {
@@ -52,9 +54,9 @@ function Layout(props) {
         }
     });
 
-    return <div>
+    return <div className="d-flex flex-column w-100 h-100">
         <Top>{top}</Top>
-        <div className="d-flex">
+        <div className="d-flex flex-fill">
             <Left className="flex-fill">{left}</Left>
             <Center className="flex-fill">{center}</Center>
             <Right className="flex-fill">{right}</Right>

@@ -8,11 +8,8 @@ function Home (){
 
     return <>   
         <Layout >
-           <div data-slot={SlotNames.Top}>new top</div> 
-           <div data-slot={SlotNames.Bottom}>new bottom</div> 
-           <div data-slot={SlotNames.Left}>new left</div> 
-           <div data-slot={SlotNames.Center}>new center</div> 
-           <div data-slot={SlotNames.Right}>new right</div> 
+           <div >new center</div> 
+           <div>cos tam</div>
         </Layout>
     </>
 }

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div id="root" class="container-fluid">
+    <div id="root" class="container-fluid h-100">
         @yield('content')
     </div>
 
