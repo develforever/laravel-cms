@@ -10,6 +10,7 @@ export type ModalConfig = {
 export type AppState = {
     user: null | User,
     modals: ModalConfig[],
+    breadcrumb: { name: string, link: string }[]
 
     // functions
     updateUser: Function,
@@ -17,4 +18,5 @@ export type AppState = {
     removeModal: Function,
     getUser: Function,
     getModals: Function
+    addBread: (name:string, link:string)=>void
 }

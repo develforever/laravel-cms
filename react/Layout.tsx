@@ -1,6 +1,29 @@
 import React from "react";
 import { Config } from "./Layout/Settings";
 
+import * as bootstrapcss from "@app/css/bootstrap.css";
+import * as appcss from "@app/css/app.css";
+
+import * as layoutcss from "@app/css/layout.css";
+
+bootstrapcss;
+appcss;
+layoutcss;
+
+export enum SlotNames {
+    Top = "top",
+    Bottom = "bottom",
+    Left = "left",
+    Center = "center",
+    Right = "right"
+}
+
+
+export type LayoutSlotProps = {
+    "data-slot": SlotNames,
+    children:string
+}
+
 function Top(props) {
     return <div className={props.className}>{props.children}</div>;
 }
@@ -18,13 +41,6 @@ function Center(props) {
     return <div className={props.className}>{props.children}</div>;
 }
 
-export enum SlotNames {
-    Top = "top",
-    Bottom = "bottom",
-    Left = "left",
-    Center = "center",
-    Right = "right"
-}
 
 
 function Layout(props) {
@@ -54,14 +70,14 @@ function Layout(props) {
         }
     });
 
-    return <div className="d-flex flex-column w-100 h-100">
-        <Top>{top}</Top>
-        <div className="d-flex flex-fill">
-            <Left className="flex-shrink-1 bg-dark-subtle">{left}</Left>
-            <Center className="flex-fill flex-grow-1">{center}</Center>
-            <Right className="flex-shrink-1">{right}</Right>
+    return <div className="d-flex flex-column w-100 h-100 position-relative">
+        <Top className="top-bar" style={{ zIndex: 10 }}>{top}</Top>
+        <div className="d-flex flex-fill center-bar" style={{ zIndex: 1 }}>
+            <Left className="left-side shadow flex-shrink-1 bg-dark-subtle">{left}</Left>
+            <Center className="center-side flex-fill flex-grow-1">{center}</Center>
+            <Right className="right-side flex-shrink-1">{right}</Right>
         </div>
-        <Bottom>{bottom}</Bottom>
+        <Bottom className="bottom-bar" style={{ zIndex: 10 }}>{bottom}</Bottom>
         {rest}
     </div>
 }

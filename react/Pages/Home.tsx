@@ -1,15 +1,13 @@
+import AppContext from "@app/AppContext";
+import Center from "@app/Components/Home/Center";
 import Layout, { SlotNames } from "@app/Layout";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigation } from "react-router";
 
-function Home (){
-
-    const navigation = useNavigation();
-
-    return <>   
-        <Layout >
-           <div>new center</div> 
-           <div>cos tam</div>
+function Home() {
+    return <>
+        <Layout>
+            <Center data-slot={SlotNames.Center} >new center</Center>
         </Layout>
     </>
 }
