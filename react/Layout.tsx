@@ -21,7 +21,7 @@ export enum SlotNames {
 
 export type LayoutSlotProps = {
     "data-slot": SlotNames,
-    children:string
+    children?:string
 }
 
 function Top(props) {

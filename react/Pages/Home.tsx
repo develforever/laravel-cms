@@ -1,14 +1,16 @@
 import AppContext from "@app/AppContext";
 import Center from "@app/Components/Home/Center";
 import Layout, { SlotNames } from "@app/Layout";
-import React, { useContext, useEffect } from "react";
-import { useNavigation } from "react-router";
+import React from "react";
+import { Link, Outlet } from "react-router-dom";
 
 function Home() {
+    
     return <>
         <Layout>
             <Center data-slot={SlotNames.Center} >new center</Center>
         </Layout>
+        <Outlet />
     </>
 }
 

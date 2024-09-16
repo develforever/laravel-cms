@@ -1,13 +1,12 @@
 "use strict";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { createRoot } from 'react-dom/client';
 
 // app
 import App from "@app/App";
 import Modals from "@app/Modals";
 import AppContext from "@app/AppContext";
-
 import AppStateInit from "./AppState";
 
 

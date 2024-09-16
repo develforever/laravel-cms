@@ -9,16 +9,6 @@ function AppStateInit():[AppState, React.Dispatch<React.SetStateAction<AppState>
     
         modals: [],
         user: null,
-        breadcrumb: [],
-        addBread(name:string, link:string){
-            setState((state)=>{
-                let tmp = [...state.breadcrumb];
-                tmp.push({
-                    name, link
-                });
-                return {...state, breadcrumb:tmp}
-            });
-        },
         updateUser(user: User) {
             setState((state) => {
                 return { ...state, user: user }

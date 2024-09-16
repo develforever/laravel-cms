@@ -1,22 +1,23 @@
 import AppContext from "@app/AppContext";
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useMatches } from "react-router-dom";
 
 
 const Breadcrumb: React.FC<{}> = ({ }) => {
 
-    const context = useContext(AppContext);
-
-    const [state, setState] = useState({
-
+    let matches = useMatches();
+    console.log(matches);
+    let items = [...matches]
+    .filter((e)=> e.handle?.name)
+    .map((e, i)=>{
+        return <Link to={e.pathname} key={i} className={"breadcrumb-item active"} >{e.handle?.name ? e.handle?.name:e.pathname}</Link>
     });
 
 
     {/* @ts-ignore */ }
     return <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
-            <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-            {/* <li className="breadcrumb-item active" aria-current="page">Library</li> */}
+            {items}
         </ol>
     </nav>
 }
