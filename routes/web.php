@@ -19,12 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-
-    $user = Auth::user();
-
-    $id = Auth::id();
-
-    return view('welcome', ['user' => $id]);
+    return view('welcome');
 })->name('home');
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
@@ -33,6 +28,4 @@ Route::post('/auth', [LoginController::class, 'auth'])->name('auth');
 
 Route::prefix('panel')->group(function () {
     Route::get('/', [PanelController::class, 'index'])->name('panel');
-    Route::resource('page', PageController::class)->name('index', 'page');
-    
 });

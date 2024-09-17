@@ -45,12 +45,16 @@ function Root() {
 }
 
 
-// @ts-ignore
-const root = createRoot(document.getElementById('root'));
-
 export default function () {
 
-    root.render(<React.StrictMode>
-        <Root></Root>
-    </React.StrictMode>);
+    // @ts-ignore
+    const node = document.querySelector('#root.has-app')
+    if (node) {
+        const root = createRoot(node);
+
+
+        root.render(<React.StrictMode>
+            <Root></Root>
+        </React.StrictMode>);
+    }
 }

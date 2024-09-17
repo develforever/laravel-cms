@@ -1,4 +1,4 @@
-@extends( $app_layout)
+@extends( $appLayout)
 @section('content')
 
 <x-login-form></x-login-form>

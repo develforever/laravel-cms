@@ -10,6 +10,6 @@ class PanelController extends Controller
     
     public function index(Request $request){
 
-        return view('panel/index');
+        return view('panel/index', ['hasApp'=> true]);
     }
 }

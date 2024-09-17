@@ -3,7 +3,7 @@ import Center from "@app/Components/Pages/Center";
 import Layout, { SlotNames } from "@app/Layout";
 import React, { useContext, useEffect, useMemo } from "react";
 
-function Page() {
+function PageEdit() {
 
     const context = useContext(AppContext);
     
@@ -15,4 +15,4 @@ function Page() {
     </>
 }
 
-export default Page;
+export default PageEdit;

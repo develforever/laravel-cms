@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
@@ -22,8 +23,12 @@ class LayoutServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
-        View::share('app_layout', 'layouts.panel');
-        View::share('app_name', Config::get('app.name'));
+        View::composer('*', function ($view) {
+            View::share('user', Auth::id());
+            View::share('hasApp', false);
+
+            View::share('appLayout', 'layouts.panel');
+            View::share('appName', Config::get('app.name'));
+        });
     }
 }
