@@ -1,11 +1,11 @@
 import React from "react";
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Outlet, redirect } from "react-router-dom";
 import Home from "@app/Pages/Home";
 import ErrorPage from "@app/Pages/ErrorPage";
 import Pages from "./Pages/Pages";
-import Page from "./Pages/PageCreate";
 import PageEdit from "./Pages/PageEdit";
 import PageCreate from "./Pages/PageCreate";
+import Redirect from "./Components/Redirect";
 
 function router() {
 
@@ -14,10 +14,15 @@ function router() {
 
             id: "home",
             path: "/",
+            element: <Outlet></Outlet>,
             handle: {
-                name: "Home"
+                name: "#"
             },
             children: [
+                {
+                    path: "/",
+                    element: <Redirect to="/"></Redirect>
+                },
                 {
                     id: "panel",
                     path: "/panel",

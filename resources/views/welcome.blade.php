@@ -11,6 +11,7 @@
 
         @auth
         <a href="/panel">Panel</a>
+        or
         <a href="/logout">Logout</a>
         @endauth
         

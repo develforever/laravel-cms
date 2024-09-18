@@ -9,8 +9,6 @@
     <title>Panel - {{ $appName }}</title>
     <script>
         const user = {{ intval($user) }};
-        console.log( user );
-
     </script>
     
 </head>

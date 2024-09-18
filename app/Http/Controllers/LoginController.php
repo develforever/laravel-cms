@@ -12,7 +12,9 @@ class LoginController extends Controller
     
     public function login(Request $request)
     {
-       
+       if(Auth::check()){
+        return redirect('/');
+       }
  
         return view('login');
     }
