@@ -16,6 +16,11 @@ function Root() {
 
     useEffect(() => {
 
+
+        // setTimeout(state.updateUser, 1000, {
+        //     username: "admin 2"
+        // });
+
         // state.updateUser({
         //     username: "admin 2"
         // });
@@ -51,8 +56,6 @@ export default function () {
     const node = document.querySelector('#root.has-app')
     if (node) {
         const root = createRoot(node);
-
-
         root.render(<React.StrictMode>
             <Root></Root>
         </React.StrictMode>);

@@ -1,11 +1,8 @@
 import React from "react";
-import DropDown from "./UI/DropDown";
-import { useNavigation } from "react-router";
-import { Link } from "react-router-dom";
 import Breadcrumb from "./UI/Breadcrumb";
+import UserDropDown from "./UI/UserDropDown";
 
 function DefaultTop() {
-
 
     return <>
         <div className="d-flex justify-content-between p-2">
@@ -18,12 +15,9 @@ function DefaultTop() {
             <div>
             </div>
             <div>
-                <DropDown title="Username(email)">
-                    <li><h6 className="dropdown-header">Account</h6></li>
-                    <li><Link className="dropdown-item" to="/account/profile">Profile</Link></li>
-                    <li><Link className="dropdown-item" to="/account/settings">Settings</Link></li>
-                    <li><Link className="dropdown-item" to="/logout">Logout</Link></li>
-                </DropDown>
+                <UserDropDown>
+                    <p>No user</p>
+                </UserDropDown>
             </div>
         </div>
     </>

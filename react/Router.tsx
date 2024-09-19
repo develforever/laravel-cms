@@ -1,5 +1,5 @@
-import React from "react";
-import { createBrowserRouter, Outlet, redirect } from "react-router-dom";
+import React, { useState } from "react";
+import { createBrowserRouter, Outlet, redirect, RouteObject } from "react-router-dom";
 import Home from "@app/Pages/Home";
 import ErrorPage from "@app/Pages/ErrorPage";
 import Pages from "./Pages/Pages";
@@ -7,14 +7,16 @@ import PageEdit from "./Pages/PageEdit";
 import PageCreate from "./Pages/PageCreate";
 import Redirect from "./Components/Redirect";
 
-function router() {
 
-    const router = createBrowserRouter([
+function routes(): [RouteObject[], React.Dispatch<React.SetStateAction<RouteObject[]>>] {
+
+    let routeValues: RouteObject[] = [
         {
 
             id: "home",
             path: "/",
             element: <Outlet></Outlet>,
+            errorElement: <ErrorPage />,
             handle: {
                 name: "#"
             },
@@ -29,7 +31,6 @@ function router() {
                     handle: {
                         name: "Panel"
                     },
-                    errorElement: <ErrorPage />,
                     element: <Outlet></Outlet>,
                     children: [
                         {
@@ -74,8 +75,22 @@ function router() {
             ],
         },
 
-    ]);
-    return router;
+    ];
+    const [routes, setRoutes] = useState<RouteObject[]>(routeValues);
+
+    return [routes, setRoutes];
+}
+
+export { routes };
+
+
+function router(routes: RouteObject[]) {
+
+    const routerValue = createBrowserRouter(routes);
+
+    const [router, setRouter] = useState(routerValue);
+
+    return [router, setRouter];
 }
 
 export default router;

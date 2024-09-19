@@ -1,3 +1,5 @@
+import { RouteObject } from "react-router"
+
 export type User = {
     username: string
 }
@@ -10,11 +12,15 @@ export type ModalConfig = {
 export type AppState = {
     user: null | User,
     modals: ModalConfig[],
+    routes: RouteObject[],
+    router: any,
 
     // functions
     updateUser: Function,
     addModal: Function,
     removeModal: Function,
     getUser: Function,
-    getModals: Function
+    getModals: Function,
+    setRoutes: Function,
+    setRouter: Function,
 }
