@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react";
 import AppContext from "@app/AppContext";
+import { ModalsPluginEvent } from "./AppState/Plugin/ModalsPlugin";
 
 export interface ModalProps {
     id: string;
-    title?:string;
+    title?: string;
     onCancel?: () => void;
     onOk?: () => void;
     onClose?: () => void;
@@ -22,7 +23,10 @@ const Modal: React.FC<ModalProps> = ({ id, title, onCancel, onClose, onOk, ...ar
 
     function close() {
         setState((state) => {
-            context.removeModal(id);
+            context.plugin.ModalsPlugin.next({
+                event: ModalsPluginEvent.REMOVE,
+                data: id
+            });
             return {
                 ...state,
                 modalClass: MODAL_CLASS_CLOSE
@@ -32,7 +36,7 @@ const Modal: React.FC<ModalProps> = ({ id, title, onCancel, onClose, onOk, ...ar
 
     function onCloseBtn() {
 
-        onClose? onClose() : null;
+        onClose ? onClose() : null;
 
         close();
     }

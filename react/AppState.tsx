@@ -30,32 +30,6 @@ function AppStateInit(): [AppState, React.Dispatch<React.SetStateAction<AppState
         getUser() {
             return state.user;
         },
-        modals: [],
-        addModal: (modalConfig: ModalConfig) => {
-            let tmp = state.modals ? [...state.modals] : [];
-            modalConfig.id = uuidv4();
-            tmp.push(modalConfig);
-            setState((state) => {
-                return { ...state, modals: tmp }
-            });
-            console.log('add modal', modalConfig, { ...state });
-        },
-        removeModal(id: string) {
-
-            let tmp: ModalConfig[] = state.modals ? [...state.modals] : [];
-
-            let index = tmp.findIndex((e) => e.id == id);
-            if (index !== -1) {
-                tmp.splice(index, 1);
-            }
-
-            setState((state) => {
-                return { ...state, modals: tmp }
-            });
-        },
-        getModals() {
-            return state.modals;
-        },
         plugin: {
         },
     } as AppState;
@@ -66,7 +40,7 @@ function AppStateInit(): [AppState, React.Dispatch<React.SetStateAction<AppState
     });
 
     let statePlugins: AppStatePluginInterface[] = [
-        new ModalsPlugin(),
+        new ModalsPlugin(initValuesSubject),
     ];
 
     const [state, setState] = useState<AppState>(initialValues);

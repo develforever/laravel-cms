@@ -17,44 +17,23 @@ function Root() {
     const [state, setState] = AppStateInit();
 
     useEffect(() => {
-
-
-        // setTimeout(state.updateUser, 1000, {
-        //     username: "admin 2"
-        // });
-
-        // state.updateUser({
-        //     username: "admin 2"
-        // });
-
-        // state.addModal({
-        //     title: "Modal my title",
-        //     onClose: ()=>{
-        //         console.log("modal close listener");
-        //     },
-        //     onOk: ()=>{
-        //         console.log("modal ok listener");
-        //     },
-        //     onCancel: ()=>{
-        //         console.log("modal cancel listener");
-        //     }
-        // } as ModalProps);
-
-        state.plugin.ModalsPlugin.next({
-            event: ModalsPluginEvent.ADD,
-            data: {
-                title: "Modal my title",
-                onClose: () => {
-                    console.log("modal close listener");
-                },
-                onOk: () => {
-                    console.log("modal ok listener");
-                },
-                onCancel: () => {
-                    console.log("modal cancel listener");
-                }
-            } as ModalProps
-        } as ModalPluginEvent);
+        // todo testing purposes
+        // 
+        // state.plugin.ModalsPlugin.next({
+        //     event: ModalsPluginEvent.ADD,
+        //     data: {
+        //         title: "Modal my title",
+        //         onClose: () => {
+        //             console.log("modal close listener");
+        //         },
+        //         onOk: () => {
+        //             console.log("modal ok listener");
+        //         },
+        //         onCancel: () => {
+        //             console.log("modal cancel listener");
+        //         }
+        //     } as ModalProps
+        // } as ModalPluginEvent);
         
     }, []);
 

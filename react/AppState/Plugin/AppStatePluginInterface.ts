@@ -4,7 +4,7 @@ import { Subject } from "rxjs";
 
 interface AppStatePluginInterface {
 
-    initialize(plugin:any, stateSubject:Subject<{}>): void;
+    initialize(plugin: any, stateSubject: Subject<{}>): void;
 
 }
 

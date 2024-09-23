@@ -12,7 +12,7 @@ export type ModalConfig = {
 
 export type AppState = {
     user: null | User,
-    modals: ModalConfig[],
+    modals?: ModalConfig[],
     routes: RouteObject[],
     router: any,
     isAuthenticated: boolean,
@@ -20,10 +20,7 @@ export type AppState = {
 
     // functions
     updateUser: Function,
-    addModal: Function,
-    removeModal: Function,
     getUser: Function,
-    getModals: Function,
     setRoutes: Function,
     setRouter: Function,
 }

@@ -20,6 +20,13 @@ export type { ModalPluginEvent };
 
 class ModalsPlugin implements AppStatePluginInterface {
 
+    constructor(initValuesSubject: Subject<{}>) {
+
+        initValuesSubject.next({
+            modals: []
+        });
+    }
+
     initialize(plugin: any, stateSubject: Subject<{}>): void {
 
         plugin.subscribe({
@@ -28,13 +35,27 @@ class ModalsPlugin implements AppStatePluginInterface {
                 switch (v.event) {
 
                     case ModalsPluginEvent.ADD:
-                        let modalConfig = v.data;
+                        {
+                            let modalConfig = v.data;
 
-                        let tmp = [];
-                        modalConfig.id = uuidv4();
-                        tmp.push(modalConfig);
-                        stateSubject.next({ modals: tmp });
+                            let tmp = [];
+                            modalConfig.id = uuidv4();
+                            tmp.push(modalConfig);
+                            stateSubject.next({ modals: tmp });
+                        }
+                        break;
+                    case ModalsPluginEvent.REMOVE:
+                        {
+                            let id = v.data.id;
+                            let tmp: ModalConfig[] = [];
 
+                            let index = tmp.findIndex((e) => e.id == id);
+                            if (index !== -1) {
+                                tmp.splice(index, 1);
+                            }
+
+                            stateSubject.next({ modals: tmp });
+                        }
                         break;
                 }
             },
