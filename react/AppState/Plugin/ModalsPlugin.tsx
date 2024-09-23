@@ -1,0 +1,47 @@
+import { AppStatePluginInterface } from "@app/AppState/Plugin/AppStatePluginInterface";
+import { ModalProps } from "@app/Modal";
+import { AppState, ModalConfig } from "@app/Types/AppTypes";
+import { Subject } from "rxjs";
+import { v4 as uuidv4 } from 'uuid';
+
+
+enum ModalsPluginEvent {
+    ADD = "add",
+    REMOVE = "remove",
+}
+
+type ModalPluginEvent = {
+    event: ModalsPluginEvent,
+    data: ModalProps
+};
+
+export { ModalsPluginEvent };
+export type { ModalPluginEvent };
+
+class ModalsPlugin implements AppStatePluginInterface {
+
+    initialize(plugin: any, stateSubject: Subject<{}>): void {
+
+        plugin.subscribe({
+            next: (v: ModalPluginEvent) => {
+
+                switch (v.event) {
+
+                    case ModalsPluginEvent.ADD:
+                        let modalConfig = v.data;
+
+                        let tmp = [];
+                        modalConfig.id = uuidv4();
+                        tmp.push(modalConfig);
+                        stateSubject.next({ modals: tmp });
+
+                        break;
+                }
+            },
+        });
+    }
+}
+
+
+
+export default ModalsPlugin;

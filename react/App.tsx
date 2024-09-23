@@ -1,17 +1,19 @@
 
 import React, { useContext } from "react";
-import router from "./Router";
 import { RouterProvider } from "react-router-dom";
 import AppContext from "./AppContext";
+import RouteGuard from "./Components/Route/RouteGuard";
 
 
 function App() {
 
     const context = useContext(AppContext);
-    const routes = context.router;
-
+    const router = context.router;
+    
     return <div className="app w-100 h-100">
-        <RouterProvider router={routes} />
+        <RouteGuard>
+            <RouterProvider router={router} />
+        </RouteGuard>
     </div>
 
 }

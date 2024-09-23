@@ -6,7 +6,6 @@ import { Link, useMatches } from "react-router-dom";
 const Breadcrumb: React.FC<{}> = ({ }) => {
 
     let matches = useMatches();
-    console.log(matches);
     let items = [...matches]
     .filter((e)=> e.handle?.name)
     .map((e, i)=>{

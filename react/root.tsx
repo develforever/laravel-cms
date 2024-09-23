@@ -7,7 +7,9 @@ import { createRoot } from 'react-dom/client';
 import App from "@app/App";
 import Modals from "@app/Modals";
 import AppContext from "@app/AppContext";
-import AppStateInit from "./AppState";
+import AppStateInit from "@app/AppState";
+import { ModalProps } from "@app/Modal";
+import { ModalPluginEvent, ModalsPluginEvent } from "@app/AppState/Plugin/ModalsPlugin";
 
 
 function Root() {
@@ -38,6 +40,22 @@ function Root() {
         //     }
         // } as ModalProps);
 
+        state.plugin.ModalsPlugin.next({
+            event: ModalsPluginEvent.ADD,
+            data: {
+                title: "Modal my title",
+                onClose: () => {
+                    console.log("modal close listener");
+                },
+                onOk: () => {
+                    console.log("modal ok listener");
+                },
+                onCancel: () => {
+                    console.log("modal cancel listener");
+                }
+            } as ModalProps
+        } as ModalPluginEvent);
+        
     }, []);
 
     return <>

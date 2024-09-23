@@ -11,7 +11,7 @@ function Modals() {
     let key = 1;
     let children:ReactElement[] = [];
 
-    context?.modals.forEach((conf:ModalConfig) => {
+    context?.modals?.forEach((conf:ModalConfig) => {
         conf.key = key++;
         
         let tmp = createElement(Modal, conf);
