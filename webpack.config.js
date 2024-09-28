@@ -1,5 +1,7 @@
 
 const path = require("path");
+const webpack = require('webpack');
+
 module.exports = {
     entry: {
         root: "./react/root.tsx"
@@ -9,7 +11,12 @@ module.exports = {
         moduleTrace: true,
         errorDetails: true,
     },
-    mode: 'development',
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV' : JSON.stringify(process.env.NODE_ENV || 'development')
+        }),
+    ],
+    mode: process.env.NODE_ENV || 'development',
     experiments: {
         outputModule: true,
         css: true,

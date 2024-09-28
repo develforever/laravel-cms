@@ -21,7 +21,7 @@ export enum SlotNames {
 
 export type LayoutSlotProps = {
     "data-slot": SlotNames,
-    children?:string
+    children?: string
 }
 
 function Top(props) {
@@ -43,7 +43,7 @@ function Center(props) {
 
 
 
-function Layout(props) {
+const Layout: React.FC<{ children: any }|any> = ({ children, ...props }) => {
 
     let top = Config.getDefaultTopComp();
     let bottom = Config.getDefaultBottomComp();
@@ -52,7 +52,7 @@ function Layout(props) {
     let right = Config.getDefaultRightComp();
     let rest: React.ReactElement[] = [];
 
-    React.Children.forEach<React.ReactElement>(props.children, (child) => {
+    React.Children.forEach<React.ReactElement>(children, (child) => {
         if (!React.isValidElement(child)) return;
 
         if (child.props["data-slot"] === SlotNames.Top) {
@@ -70,7 +70,7 @@ function Layout(props) {
         }
     });
 
-    return <div className="d-flex flex-column w-100 h-100 position-relative">
+    return <div {...props} className="d-flex flex-column w-100 h-100 position-relative">
         <Top className="top-bar" style={{ zIndex: 10 }}>{top}</Top>
         <div className="d-flex flex-fill center-bar" style={{ zIndex: 1 }}>
             <Left className="left-side shadow flex-shrink-1 bg-dark-subtle">{left}</Left>

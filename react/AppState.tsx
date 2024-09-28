@@ -1,16 +1,21 @@
-import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
-import { AppState, ModalConfig, User } from "./Types/AppTypes";
-import router, { routes } from "./Router";
+import { useState } from "react";
+import { AppState, PluginsKeys, User } from "@app/Types/AppTypes";
+import router, { routes } from "@app/Router";
 import { AppStatePluginInterface } from "@app/AppState/Plugin/AppStatePluginInterface";
-import ModalsPlugin from "./AppState/Plugin/ModalsPlugin";
+import ModalsPlugin from "@app/AppState/Plugin/ModalsPlugin";
 import { Subject } from "rxjs";
-
+import * as Home from "@app/Pages/Home";
+import * as Page from "@app/Pages/Page";
 
 
 function AppStateInit(): [AppState, React.Dispatch<React.SetStateAction<AppState>>] {
 
-    const [routeValues, setRoutes] = routes();
+    let panelsRoutes = [
+        ...Home.getRoutes(),
+        ...Page.getRoutes(),
+    ];
+
+    const [routeValues, setRoutes] = routes(panelsRoutes);
 
     const [routerObject, setRouter] = router(routeValues);
 
@@ -33,6 +38,7 @@ function AppStateInit(): [AppState, React.Dispatch<React.SetStateAction<AppState
         plugin: {
         },
     } as AppState;
+    
 
     const initValuesSubject = new Subject<{}>();
     initValuesSubject.subscribe((v) => {
@@ -52,8 +58,10 @@ function AppStateInit(): [AppState, React.Dispatch<React.SetStateAction<AppState
 
     statePlugins
         .forEach((plgConf) => {
-            initialValues.plugin[plgConf.constructor.name] = new Subject<number | string | object>()
-            plgConf.initialize(initialValues.plugin[plgConf.constructor.name], stateSubject);
+
+            let plgName = plgConf.constructor.name as PluginsKeys;
+            initialValues.plugin[plgName] = new Subject<number | string | object>()
+            plgConf.initialize(initialValues.plugin[plgName], stateSubject);
         });
 
     return [state, setState];

@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PanelController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +30,12 @@ Route::post('/auth', [LoginController::class, 'auth'])->name('auth');
 Route::prefix('panel')->group(function () {
     Route::get('/', [PanelController::class, 'index'])->name('panel');
 });
+
+Route::post('/user/token/create', function (Request $request) {
+
+    $user =  $request->user();
+    $token = $user->createToken($request->token_name, ['panel:api']);
+    $tokenText = $token->plaintTextToken;
+
+    return ['token' => $tokenText];
+})->middleware('auth');

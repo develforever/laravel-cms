@@ -1,9 +1,9 @@
 import React from "react"
-import DefaultBottom from "@app/Components/DefaultBottom"
-import DefaultCenter from "@app/Components/DefaultCenter"
-import DefaultLeft from "@app/Components/DefaultLeft"
-import DefaultRight from "@app/Components/DefaultRight"
-import DefaultTop from "@app/Components/DefaultTop"
+import DefaultBottom from "@app/Component/DefaultBottom"
+import DefaultCenter from "@app/Component/DefaultCenter"
+import DefaultLeft from "@app/Component/DefaultLeft"
+import DefaultRight from "@app/Component/DefaultRight"
+import DefaultTop from "@app/Component/DefaultTop"
 
 
 enum LayoutSettings {

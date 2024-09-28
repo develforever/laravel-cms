@@ -6,11 +6,11 @@ const RouteGuard: React.FC<any> = ({ children }) => {
 
     const context = useContext(AppContext);
 
-    function subRouter(state) {
-        console.log({...state});
+    function subRouter(state:any) {
+        console.log({ ...state });
     }
 
-    let sub = null;
+    let sub:any = null;
 
     useEffect(() => {
         if (sub) {
@@ -23,9 +23,7 @@ const RouteGuard: React.FC<any> = ({ children }) => {
     }, []);
 
     return <>
-        <div>
-            {children}
-        </div>
+        {children}
     </>
 
 }

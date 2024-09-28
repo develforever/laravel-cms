@@ -1,9 +1,9 @@
 import AppContext from "@app/AppContext";
-import Center from "@app/Components/Pages/Center";
+import Center from "@app/Component/Page/Edit/Center";
 import Layout, { SlotNames } from "@app/Layout";
 import React, { useContext, useEffect, useMemo } from "react";
 
-function PageEdit() {
+function Edit() {
 
     const context = useContext(AppContext);
     
@@ -15,4 +15,4 @@ function PageEdit() {
     </>
 }
 
-export default PageEdit;
+export default Edit;

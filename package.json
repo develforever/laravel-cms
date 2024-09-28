@@ -7,8 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "webpack",
-    "dev": "NODE_OPTIONS=\"--inspect\" webpack --watch"
+    "build": "webpack --mode production",
+    "predev":"bash $HOME/.nvm/nvm.sh use; docker compose up -d; printenv | grep NODE",
+    "dev": "webpack --watch"
   },
   "author": "",
   "license": "ISC",

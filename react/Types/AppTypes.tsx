@@ -10,13 +10,17 @@ export type ModalConfig = {
     key: any
 }
 
+export type PluginsKeys = "ModalsPlugin";
+
 export type AppState = {
     user: null | User,
     modals?: ModalConfig[],
     routes: RouteObject[],
     router: any,
     isAuthenticated: boolean,
-    plugin: { [key: string]: Subject<number | string | {}> }
+    plugin: {
+        [key in PluginsKeys]?: Subject<number | string | {}>
+    }
 
     // functions
     updateUser: Function,

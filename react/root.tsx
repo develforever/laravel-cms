@@ -12,11 +12,17 @@ import { ModalProps } from "@app/Modal";
 import { ModalPluginEvent, ModalsPluginEvent } from "@app/AppState/Plugin/ModalsPlugin";
 
 
+
+//console.log(process);
+
 function Root() {
 
     const [state, setState] = AppStateInit();
 
     useEffect(() => {
+
+        
+
         // todo testing purposes
         // 
         // state.plugin.ModalsPlugin.next({

@@ -1,10 +1,10 @@
 import AppContext from "@app/AppContext";
-import Center from "@app/Components/PageCreate/Center";
+import Center from "@app/Component/Page/Create/Center";
 import Layout, { SlotNames } from "@app/Layout";
 import React, { useContext, useEffect, useMemo } from "react";
 import { useActionData } from "react-router";
 
-function PageCreate() {
+function Create() {
 
     const context = useContext(AppContext);
     let actionData = useActionData();
@@ -18,4 +18,4 @@ function PageCreate() {
     </>
 }
 
-export default PageCreate;
+export default Create;
