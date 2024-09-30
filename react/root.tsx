@@ -13,17 +13,20 @@ import { ModalPluginEvent, ModalsPluginEvent } from "@app/AppState/Plugin/Modals
 
 
 
-//console.log(process);
-
 function Root() {
 
     const [state, setState] = AppStateInit();
 
     useEffect(() => {
 
-        
+        console.log('root auth');
 
         // todo testing purposes
+        // make authenticated
+        setState((state) => {
+            return { ...state, isAuthenticated: true }
+        });
+
         // 
         // state.plugin.ModalsPlugin.next({
         //     event: ModalsPluginEvent.ADD,
@@ -40,7 +43,7 @@ function Root() {
         //         }
         //     } as ModalProps
         // } as ModalPluginEvent);
-        
+
     }, []);
 
     return <>
@@ -59,8 +62,6 @@ export default function () {
     const node = document.querySelector('#root.has-app')
     if (node) {
         const root = createRoot(node);
-        root.render(<React.StrictMode>
-            <Root></Root>
-        </React.StrictMode>);
+        root.render(<Root></Root>);
     }
 }

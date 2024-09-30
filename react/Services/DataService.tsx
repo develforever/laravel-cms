@@ -1,6 +1,36 @@
 import axios from 'axios';
-import { Reducer, useReducer, useState } from 'react';
-import { delay, Observable } from 'rxjs';
+import React, { useReducer } from 'react';
+
+enum ActionType {
+    init = "init",
+    request = "request",
+    success = "success",
+    error = "error",
+}
+
+enum Status {
+    init = "init",
+    request = "request",
+    success = "success",
+    error = "error",
+}
+
+
+
+type InitialState = {
+    status?: Status,
+    url?: string,
+    isLoading: boolean ,
+    result?: any | null
+};
+
+type Action = {
+    url: string,
+    data?: any,
+    method?: string,
+    type?: ActionType,
+    result?: any
+};
 
 
 const apiClient = axios.create({
@@ -14,110 +44,102 @@ const apiClient = axios.create({
     }
 });
 
-async function fetchData(params: any) {
+async function fetchData(action: Action) {
 
-    const result = await apiClient.request(params);
+    const result = await apiClient.request({
+        url: action.url,
+        data: action.data,
+        method: action.data ? action.method || "POST" : "GET"
+    });
 
     return result;
 }
 
-function reducer(state: InitialState, action: Action) {
+function reducer(state: InitialState, action: Action): InitialState {
 
-    let type: string = action.type || "request";
-    console.log('reducer type', type);
+    let type: ActionType = action.type || ActionType.init;
+
     switch (type) {
 
-        case "success":
+        case ActionType.success:
             return {
                 ...state,
-                status: "success",
+                isLoading: false,
+                status: Status.success,
                 result: action.result,
                 url: action.url
             };
-        case "request":
+        case ActionType.request:
             return {
                 ...state,
-                status: "request",
+                isLoading: true,
+                status: Status.request,
                 result: action.result,
                 url: action.url
             };
-        case "init":
+        case ActionType.init:
             return {
                 ...state,
-                status: "init",
+                status: Status.init,
                 result: action.result,
                 url: action.url
             };
-        case "error":
+        case ActionType.error:
             return {
                 ...state,
+                isLoading: false,
                 url: action.url,
-                status: "error",
+                result: action.result,
+                status: Status.error,
             };
         default:
             return state;
     }
 }
 
-function dispatchMiddleware(dispatch) {
-    return async action => {
-        let type: string = action.type || "init";
-        console.log('dispatchMiddleware type', type);
+function dispatchMiddleware(dispatch: React.Dispatch<Action>) {
+    return async (action: Action) => {
+
+        let type: ActionType = action.type || ActionType.init;
+        
         switch (type) {
-            case "init":
-
-
-                dispatch({ ...action, status: "request", type: "request" })
-
-            case "request":
-                console.log("dispatchMiddleware request action", action);
+            case ActionType.init:
+                dispatch({ ...action, type: ActionType.request })
+            case ActionType.request:
                 try {
-                    const result = await fetchData(action.url);
-                    dispatch({ ...action, status: "success", type: "success", result });
+                    const result = await fetchData(action);
+                    dispatch({ ...action, type: ActionType.success, result });
                 } catch (e) {
-                    dispatch({ ...action, type: "error" });
+                    console.error('data servce error', e);
+                    dispatch({ ...action, type: ActionType.error });
                 }
                 break;
 
             default:
-                return dispatch(action);
+                dispatch(action);
         }
     };
 }
 
-type InitialState = {
-    status: string | null,
-    url: string | null,
-    result: any | null
-}
 
-type Action = {
-    url: string,
-    type?: string,
-    result?: any
-};
-
-function useDataService(...middlewares) {
+function useDataService(...middlewares: ((action: React.Dispatch<Action>) => (action: Action) => Promise<void>)[]) {
 
     let params: InitialState = {
-        status: "init",
-        url: null,
-        result: null
+        isLoading: false
     };
-    const [result, dispatch] = useReducer<Reducer<InitialState, Action>>(
+    const [result, dispatch] = useReducer(
         reducer,
         params
     );
 
     let md = dispatch;
-
     if (middlewares) {
         middlewares.forEach((e) => {
             md = e(md);
         });
     }
 
-    return [result, dispatchMiddleware(md)];
+    return [result, dispatchMiddleware(md)] as const;
 }
 
 export default useDataService;

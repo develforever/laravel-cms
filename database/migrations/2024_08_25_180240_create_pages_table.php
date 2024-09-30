@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('autor_user_id');
             $table->foreign('autor_user_id')->references('id')->on('users');
             $table->timestamps();
+            $table->softDeletes();
+            $table->string('title');
             $table->string('content');
         });
     }

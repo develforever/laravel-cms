@@ -1,5 +1,5 @@
 import AppContext from "@app/AppContext";
-import Center from "@app/Component/Page/Edit/Center";
+import Center from "@app/Component/Pages/Page/Edit/Center";
 import Layout, { SlotNames } from "@app/Layout";
 import React, { useContext, useEffect, useMemo } from "react";
 

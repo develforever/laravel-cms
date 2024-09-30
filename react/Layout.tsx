@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode, Suspense } from "react";
 import { Config } from "./Layout/Settings";
 
 import * as bootstrapcss from "@app/css/bootstrap.css";
@@ -21,7 +21,7 @@ export enum SlotNames {
 
 export type LayoutSlotProps = {
     "data-slot": SlotNames,
-    children?: string
+    children?: any
 }
 
 function Top(props) {
@@ -48,7 +48,7 @@ const Layout: React.FC<{ children: any }|any> = ({ children, ...props }) => {
     let top = Config.getDefaultTopComp();
     let bottom = Config.getDefaultBottomComp();
     let left = Config.getDefaultLeftComp();
-    let center = Config.getDefaultCenterComp();
+    let center = Config.getDefaultCenterComp<ReactNode>();
     let right = Config.getDefaultRightComp();
     let rest: React.ReactElement[] = [];
 
@@ -74,7 +74,11 @@ const Layout: React.FC<{ children: any }|any> = ({ children, ...props }) => {
         <Top className="top-bar" style={{ zIndex: 10 }}>{top}</Top>
         <div className="d-flex flex-fill center-bar" style={{ zIndex: 1 }}>
             <Left className="left-side shadow flex-shrink-1 bg-dark-subtle">{left}</Left>
-            <Center className="center-side flex-fill flex-grow-1">{center}</Center>
+            <Center className="center-side flex-fill flex-grow-1">
+                <Suspense fallback={<div>Loading...</div>}>
+                    {center}
+                </Suspense>
+                </Center>
             <Right className="right-side flex-shrink-1">{right}</Right>
         </div>
         <Bottom className="bottom-bar" style={{ zIndex: 10 }}>{bottom}</Bottom>

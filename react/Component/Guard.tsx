@@ -2,17 +2,21 @@ import AppContext from "@app/AppContext";
 import React, { useContext, useEffect } from "react"
 import { useNavigation } from "react-router-dom";
 
-const RouteGuard: React.FC<any> = ({ children }) => {
+const Guard: React.FC<any> = ({ children }) => {
 
     const context = useContext(AppContext);
 
+    const nav = useNavigation();
+
     function subRouter(state:any) {
-        console.log({ ...state });
+        console.log({ ...state }, nav);
     }
 
     let sub:any = null;
 
     useEffect(() => {
+
+        console.log(context.isAuthenticated);
         if (sub) {
             return
         }
@@ -22,10 +26,11 @@ const RouteGuard: React.FC<any> = ({ children }) => {
 
     }, []);
 
+    console.log(context.isAuthenticated);
     return <>
-        {children}
+        { context.isAuthenticated ? children : null}
     </>
 
 }
 
-export default RouteGuard
+export default Guard

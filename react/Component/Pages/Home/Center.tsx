@@ -5,9 +5,10 @@ import { Link } from "react-router-dom"
 
 const Center: React.FC<LayoutSlotProps> = ({ children }) => {
 
-    return <Card title="My card 2">
-        <p>Text sample</p>
-        <Link to={"pageEdit"} key={0} >Page details</Link>
+    return <Card title="Pages">
+        <Link to={"pages"} key={0} >Go to pages list</Link><br/>
+        or <br/>
+        <Link to={"create/page"} key={1} >Create new page</Link>
         <div>
             {children}
         </div>
