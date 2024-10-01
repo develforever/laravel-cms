@@ -3,25 +3,33 @@
     <form method="POST" action="/auth">
         @csrf
 
-        <input id="email"
-            type="text"
-            required
-            name="email"
-            class="@error('email') is-invalid @enderror">
+        <div>
+            <label class="form-label">Email address</label>
+            <input id="email"
+                type="text"
+                required
+                name="email"
+                class="@error('email') is-invalid @enderror form-control">
 
-        @error('email')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-        <input id="pass"
-            type="password"
-            name="password"
-            required
-            class="@error('pass') is-invalid @enderror">
+            @error('email')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        <div>
+            <label class="form-label">Password</label>
+            <input id="pass"
+                type="password"
+                name="password"
+                required
+                class="@error('pass') is-invalid @enderror form-control">
 
-        @error('pass')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-        <button type="submit">Sign in</button>
+            @error('pass')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="pt-4">
+        <button type="submit" class="btn btn-primary">Sign in</button>
+        </div>
     </form>
 
 

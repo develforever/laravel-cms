@@ -1,4 +1,4 @@
 @extends( $appLayout)
 @section('content')
-index
+App is loading ...
 @endsection
