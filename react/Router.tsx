@@ -3,8 +3,7 @@ import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
 import ErrorPage from "@app/Pages/ErrorPage";
 import Redirect from "@app/Component/Redirect";
 
-
-function routes(panelsRoutes?: RouteObject[]): [RouteObject[], React.Dispatch<React.SetStateAction<RouteObject[]>>] {
+function routes(panelsRoutes?: RouteObject[]): RouteObject[] {
 
     let routeValues: RouteObject[] = [
         {
@@ -34,9 +33,8 @@ function routes(panelsRoutes?: RouteObject[]): [RouteObject[], React.Dispatch<Re
         },
 
     ];
-    const [routes, setRoutes] = useState<RouteObject[]>(routeValues);
 
-    return [routes, setRoutes];
+    return routeValues;
 }
 
 export { routes };
@@ -45,10 +43,7 @@ export { routes };
 function router(routes: RouteObject[]) {
 
     const routerValue = createBrowserRouter(routes);
-
-    const [router, setRouter] = useState(routerValue);
-
-    return [router, setRouter];
+    return routerValue;
 }
 
 export default router;

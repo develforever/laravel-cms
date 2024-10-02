@@ -20,14 +20,11 @@ export type { ModalPluginEvent };
 
 class ModalsPlugin implements AppStatePluginInterface {
 
-    constructor(initValuesSubject: Subject<{}>) {
+    initialize(initValuesSubject: Subject<{}>, plugin: any, stateSubject: Subject<{}>): void {
 
         initValuesSubject.next({
             modals: []
         });
-    }
-
-    initialize(plugin: any, stateSubject: Subject<{}>): void {
 
         plugin.subscribe({
             next: (v: ModalPluginEvent) => {

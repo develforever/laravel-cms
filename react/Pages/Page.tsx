@@ -1,11 +1,13 @@
 import Center from "@app/Component/Pages/Page/Center";
 import Layout, { SlotNames } from "@app/Layout";
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useContext, useEffect } from "react";
 import Edit from "@app/Pages/Page/Edit";
 import Create from "@app/Pages/Page/Create";
 import Details from "@app/Pages/Page/Details";
 import { RouteObject } from "react-router";
 import useDataService from "@app/Services/DataService";
+import useAppStateInit from "@app/AppState";
+import AppContext from "@app/AppContext";
 
 
 export function getRoutes(): RouteObject[] {
@@ -65,10 +67,11 @@ export type PageResource = {
 
 function Page() {
 
-    const [state, dispatch] = useDataService();
+    const context = useContext(AppContext);
+    const [state, dispatch] = useDataService('/page/list');
 
     useEffect(() => {
-        dispatch({ url: '/page/list' })
+        dispatch({})
     }, []);
 
 
@@ -78,7 +81,7 @@ function Page() {
     return <div className="h-100">
         <Layout className="h-100">
             <Center data-slot={SlotNames.Center} data={data} >
-
+                <button onClick={() => { context.state({ user: { username: "username test" } }) }}>set</button>
             </Center>
         </Layout>
     </div>

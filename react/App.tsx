@@ -1,26 +1,28 @@
 
 import React, { Suspense, useContext, useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
-import AppContext from "./AppContext";
-import useDataService from "./Services/DataService";
+import AppContext from "@app/AppContext";
+import useDataService, { Status } from "@app/Services/DataService";
 
 function App() {
 
     const context = useContext(AppContext);
     const router = context.router;
 
-    const [state, dispatch] = useDataService();
+    const [state, dispatch] = useDataService('/user');
 
     useEffect(() => {
-        dispatch({ url: '/user' })
+        dispatch({})
     }, []);
 
-    
+    if (state.status === Status.success) {
+        console.log(state.result.data);
+        //context.dispatch({user:state.result.data});
+    }
+
 
     return <div className="app w-100 h-100 q">
-        <Suspense fallback={<div>loading ....</div>}>
-            <RouterProvider router={router} />
-        </Suspense>
+        <RouterProvider router={router} />
     </div>
 
 }

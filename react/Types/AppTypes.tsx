@@ -13,18 +13,14 @@ export type ModalConfig = {
 export type PluginsKeys = "ModalsPlugin";
 
 export type AppState = {
+    title?: string,
     user: null | User,
     modals?: ModalConfig[],
     routes: RouteObject[],
     router: any,
-    isAuthenticated: boolean,
+    isAuthenticated: () => boolean,
     plugin: {
         [key in PluginsKeys]?: Subject<number | string | {}>
-    }
-
-    // functions
-    updateUser: Function,
-    getUser: Function,
-    setRoutes: Function,
-    setRouter: Function,
+    },
+    dispatch:Function,
 }

@@ -8,7 +8,7 @@ enum ActionType {
     error = "error",
 }
 
-enum Status {
+export enum Status {
     init = "init",
     request = "request",
     success = "success",
@@ -20,12 +20,12 @@ enum Status {
 type InitialState = {
     status?: Status,
     url?: string,
-    isLoading: boolean ,
+    isLoading: boolean,
     result?: any | null
 };
 
 type Action = {
-    url: string,
+    url?: string,
     data?: any,
     method?: string,
     type?: ActionType,
@@ -44,10 +44,10 @@ const apiClient = axios.create({
     }
 });
 
-async function fetchData(action: Action) {
+async function fetchData(url:string, action: Action) {
 
     const result = await apiClient.request({
-        url: action.url,
+        url: url,
         data: action.data,
         method: action.data ? action.method || "POST" : "GET"
     });
@@ -97,17 +97,20 @@ function reducer(state: InitialState, action: Action): InitialState {
     }
 }
 
-function dispatchMiddleware(dispatch: React.Dispatch<Action>) {
+function dispatchMiddleware(url: string, dispatch: React.Dispatch<Action>) {
+
+    console.debug('dispatch middleware');
+
     return async (action: Action) => {
 
         let type: ActionType = action.type || ActionType.init;
-        
+
         switch (type) {
             case ActionType.init:
-                dispatch({ ...action, type: ActionType.request })
+                dispatch({ ...action, url, type: ActionType.request })
             case ActionType.request:
                 try {
-                    const result = await fetchData(action);
+                    const result = await fetchData(url, action);
                     dispatch({ ...action, type: ActionType.success, result });
                 } catch (e) {
                     console.error('data servce error', e);
@@ -122,10 +125,11 @@ function dispatchMiddleware(dispatch: React.Dispatch<Action>) {
 }
 
 
-function useDataService(...middlewares: ((action: React.Dispatch<Action>) => (action: Action) => Promise<void>)[]) {
+function useDataService(url: string, ...middlewares: ((action: React.Dispatch<Action>) => (action: Action) => Promise<void>)[]) {
 
     let params: InitialState = {
-        isLoading: false
+        isLoading: false,
+        url,
     };
     const [result, dispatch] = useReducer(
         reducer,
@@ -139,7 +143,8 @@ function useDataService(...middlewares: ((action: React.Dispatch<Action>) => (ac
         });
     }
 
-    return [result, dispatchMiddleware(md)] as const;
+    console.debug('data serive');
+    return [result, dispatchMiddleware(url, md)] as const;
 }
 
 export default useDataService;

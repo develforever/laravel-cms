@@ -12,8 +12,6 @@
     </div>
     <div class="d-flex flex-column p-4">
 
-        <p>Copyrights &copy; Robert Jamróz &leftarrow;rockfade&#64;gmail.com 2024
-        <p>
         <p>Powered by <a href="https://laravel.com/">Laravel</a> and <a href="https://react.dev/">React</a></p>
     </div>
 </div>

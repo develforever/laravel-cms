@@ -7,11 +7,11 @@ import useDataService from "@app/Services/DataService"
 const Center: React.FC<LayoutSlotProps> = ({ }) => {
 
     const actiondata = useActionData();
-    const [state, dispatch] = useDataService();
+    const [state, dispatch] = useDataService("/page/store");
 
     useEffect(() => {
         if (actiondata) {
-            dispatch({ url: "/page/store", data: actiondata });
+            dispatch({ data: actiondata });
         }
     }, [actiondata]);
 
