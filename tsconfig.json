@@ -120,7 +120,7 @@
     "public/js/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "eslint.config.mjs"  ],
   "exclude": [
     "node_modules"
   ]
