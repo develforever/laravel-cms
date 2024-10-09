@@ -17,10 +17,12 @@ export type AppState = {
     user: null | User,
     modals?: ModalConfig[],
     routes: RouteObject[],
+    token?: string,
+    xcsrf?: string,
     router: any,
     isAuthenticated: () => boolean,
     plugin: {
         [key in PluginsKeys]?: Subject<number | string | {}>
     },
-    dispatch:Function,
+    dispatch: Function,
 }

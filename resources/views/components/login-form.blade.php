@@ -8,6 +8,7 @@
             <input id="email"
                 type="text"
                 required
+                autocomplete="username"
                 name="email"
                 class="@error('email') is-invalid @enderror form-control">
 
@@ -20,6 +21,7 @@
             <input id="pass"
                 type="password"
                 name="password"
+                autocomplete="current-password"
                 required
                 class="@error('pass') is-invalid @enderror form-control">
 

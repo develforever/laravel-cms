@@ -8,6 +8,7 @@ import { RouteObject } from "react-router";
 import useDataService from "@app/Services/DataService";
 import useAppStateInit from "@app/AppState";
 import AppContext from "@app/AppContext";
+import { ApiEndpointNames } from "@app/Enum/Api";
 
 
 export function getRoutes(): RouteObject[] {
@@ -68,7 +69,7 @@ export type PageResource = {
 function Page() {
 
     const context = useContext(AppContext);
-    const [state, dispatch] = useDataService('/page/list');
+    const [state, dispatch] = useDataService(ApiEndpointNames.PAGE_LIST);
 
     useEffect(() => {
         dispatch({})

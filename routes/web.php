@@ -34,8 +34,14 @@ Route::prefix('panel')->group(function () {
 Route::post('/user/token/create', function (Request $request) {
 
     $user =  $request->user();
-    $token = $user->createToken($request->token_name, ['panel:api']);
-    $tokenText = $token->plaintTextToken;
+    $tokenText = $request->session()->get('token');
+    if (!$request->session()->has('token')) {
+        $token = $user->createToken($request->token_name, ['panel:api']);
+        $tokenText = $token->plainTextToken;
+        $request->session()->put('token', $tokenText);
+    }
+
+
 
     return ['token' => $tokenText];
 })->middleware('auth');

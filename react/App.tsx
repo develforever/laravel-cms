@@ -1,28 +1,23 @@
 
-import React, { Suspense, useContext, useEffect } from "react";
+import React, { Suspense, useContext, useEffect, useRef } from "react";
 import { RouterProvider } from "react-router-dom";
 import AppContext from "@app/AppContext";
-import useDataService, { Status } from "@app/Services/DataService";
+import useUserAuth from "@app/Services/UserAuth";
+import { useService } from "./Services/DataService";
 
 function App() {
 
+    console.log('render app');
+    useService();
+    
     const context = useContext(AppContext);
     const router = context.router;
-
-    const [state, dispatch] = useDataService('/user');
-
-    useEffect(() => {
-        dispatch({})
-    }, []);
-
-    if (state.status === Status.success) {
-        console.log(state.result.data);
-        //context.dispatch({user:state.result.data});
-    }
+    const auth = useUserAuth();
 
 
     return <div className="app w-100 h-100 q">
-        <RouterProvider router={router} />
+        {/* {JSON.stringify(user.current)} */}
+        {context.isAuthenticated() ? <RouterProvider router={router} /> : <div className="dot-loader">Loading <span className="dot-loader--dots"></span></div>}
     </div>
 
 }

@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div id="root" class="h-100 bg-dark{{$hasApp?' has-app':''}}">
+    <div id="root" class="bg-dark d-flex w-100 h-100 justify-content-between{{$hasApp?' has-app':''}}">
         @yield('content')
     </div>
 

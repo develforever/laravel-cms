@@ -28,13 +28,13 @@ function useAppStateInit(): [AppState, React.Dispatch<React.SetStateAction<AppSt
             user: null,
             routes: routeValues,
             router: routerObject,
+            xcsrf: globalThis.document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
             isAuthenticated: () => {
-                console.log('is auth', state.user);
                 return state.user !== null;
             },
             plugin: {
             },
-            dispatch: (newState:any)=>{
+            dispatch: (newState: any) => {
                 stateSubject.next(newState);
             },
         } as AppState;

@@ -18,6 +18,7 @@ let o: any = [];
 const Root: React.FC<{ children?: any }> = ({ children }) => {
 
     console.log('root render');
+    
     const [state, setState] = useAppStateInit();
 
     useEffect(() => {
@@ -54,8 +55,8 @@ const Root: React.FC<{ children?: any }> = ({ children }) => {
     return <>
         <AppContext.Provider value={state}>
             {/* <h5>{state.title}</h5>
-            <button onClick={() => { setState((state) => { return { ...state, user: { username: 'test username' } } }) }}>set</button>
-            <p className="color-white text-white">Is logged: { JSON.stringify(state.isAuthenticated())}</p> */}
+            <button onClick={() => { state.dispatch({ user: { username: 'test username' } }) }}>set</button>
+            <p className="color-white text-white">Is logged: {JSON.stringify(state.isAuthenticated())}</p> */}
             <App key="app"></App>
             {/* {state.isAuthenticated() ? <App key="app"></App> : <div className="w-100 h-100 d-flex align-items-center justify-content-center">
                 <div className="align-middle">

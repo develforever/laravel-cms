@@ -10,16 +10,14 @@ type CenterProps = {
 
 const Center: React.FC<LayoutSlotProps & CenterProps> = ({ children, data }) => {
 
+    console.log("page center render");
     let items = data?.map((e: PageResource, i: number) => {
         return <ListItem key={i} page={e}></ListItem>
     });
 
-    return <div>
+    return <div className="overflow-y-hidden">
         <div>
             {items}
-        </div>
-        <div>
-            {children}
         </div>
     </div>
 

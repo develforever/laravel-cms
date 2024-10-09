@@ -70,11 +70,11 @@ const Layout: React.FC<{ children: any }|any> = ({ children, ...props }) => {
         }
     });
 
-    return <div {...props} className="d-flex flex-column w-100 h-100 position-relative">
+    return <div {...props} className="d-flex flex-column position-relative">
         <Top className="top-bar" style={{ zIndex: 10 }}>{top}</Top>
         <div className="d-flex flex-fill center-bar" style={{ zIndex: 1 }}>
             <Left className="left-side shadow flex-shrink-1 bg-dark-subtle">{left}</Left>
-            <Center className="center-side flex-fill flex-grow-1">
+            <Center className="center-side flex-fill flex-grow-1 overflow-hidden">
                 <Suspense fallback={<div>Loading...</div>}>
                     {center}
                 </Suspense>
