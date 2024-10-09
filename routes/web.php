@@ -6,6 +6,7 @@ use App\Http\Controllers\PanelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,3 +46,8 @@ Route::post('/user/token/create', function (Request $request) {
 
     return ['token' => $tokenText];
 })->middleware('auth');
+
+
+Route::fallback(function () {
+    return redirect('/');
+});

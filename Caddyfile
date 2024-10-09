@@ -27,6 +27,19 @@
 	root * public/
 	encode zstd br gzip
 
+
+ 	handle_errors {
+        @404 {
+            expression {http.error.status_code} == 404
+        }
+        rewrite @404 /index.php?e=404
+        php_server
+    }
+
+	log {
+		output stdout
+	}
+
 	# Uncomment the following lines to enable Mercure and Vulcain modules
 	#mercure {
 	#	# Transport to use (default to Bolt)
