@@ -15,8 +15,8 @@ function Comp(props: { children?: any }) {
     if (user) {
         return <DropDown title={user?.username}>
             <li><h6 className="dropdown-header">Account</h6></li>
-            <li><Link className="dropdown-item" to="/account/profile">Profile</Link></li>
-            <li><Link className="dropdown-item" to="/account/settings">Settings</Link></li>
+            <li><Link className="dropdown-item" to="/panel/account/profile">Profile</Link></li>
+            <li><Link className="dropdown-item" to="/panel/account/settings">Settings</Link></li>
             <li><a href="#" className="dropdown-item" onClick={()=> globalThis.location.assign('/logout')}>Logout</a></li>
         </DropDown>
     } else if (props.children) {

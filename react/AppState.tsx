@@ -6,10 +6,12 @@ import ModalsPlugin from "@app/AppState/Plugin/ModalsPlugin";
 import { Subject } from "rxjs";
 import * as Home from "@app/Pages/Home";
 import * as Page from "@app/Pages/Page";
+import * as Account from "@app/Pages/Account";
 
 let panelsRoutes = [
     ...Home.getRoutes(),
     ...Page.getRoutes(),
+    ...Account.getRoutes(),
 ];
 
 let [state, setState]: [AppState, React.Dispatch<React.SetStateAction<AppState>>] = [{} as AppState, () => { }] as const;
