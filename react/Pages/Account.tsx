@@ -2,38 +2,20 @@
 import Center from "@app/Component/Pages/Account/Center";
 import Layout, { SlotNames } from "@app/Layout";
 import React from "react";
-import { Outlet, RouteObject } from "react-router-dom";
-import Profile from "@app/Pages/Account/Profile";
-import Settings from "@app/Pages/Account/Settings";
+import { Outlet, RouteObject, useParams } from "react-router-dom";
 
 export function getRoutes(): RouteObject[] {
 
     return [
         {
-            path: "account",
+            path: "account/:tab",
             handle: {
-                name: "Account"
+                name: "Account {tab}"
             },
             children: [
                 {
                     index: true,
                     element: <Account></Account>,
-                },
-                {
-                    id: "account_profile",
-                    path: "profile",
-                    element: <Profile></Profile>,
-                    handle: {
-                        name: "Profile"
-                    }
-                },
-                {
-                    id: "account_settings",
-                    path: "settings",
-                    element: <Settings></Settings>,
-                    handle: {
-                        name: "Settings"
-                    }
                 },
             ],
         },

@@ -1,4 +1,4 @@
-import ListItem from "@app/Component/UI/Page/ListItem";
+import ListItem from "@app/Component/Pages/Page/ListItem";
 import { LayoutSlotProps } from "@app/Layout"
 import { PageResource } from "@app/Pages/Page";
 import React from "react"
@@ -7,6 +7,7 @@ import { Link } from "react-router-dom"
 type CenterProps = {
     data: any
 } & LayoutSlotProps;
+
 
 const Center: React.FC<LayoutSlotProps & CenterProps> = ({ children, data }) => {
 

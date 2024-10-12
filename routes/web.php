@@ -37,12 +37,10 @@ Route::post('/user/token/create', function (Request $request) {
     $user =  $request->user();
     $tokenText = $request->session()->get('token');
     if (!$request->session()->has('token')) {
-        $token = $user->createToken($request->token_name, ['panel:api']);
+        $token = $user->createToken($request->token_name, ['panel:api'],  now()->addHours(3));
         $tokenText = $token->plainTextToken;
         $request->session()->put('token', $tokenText);
     }
-
-
 
     return ['token' => $tokenText];
 })->middleware('auth');
