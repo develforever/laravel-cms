@@ -1,9 +1,13 @@
 <?php
 
+use App\Enums\TokenAbilities;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PanelController;
+use App\Services\UserTokenService;
+use App\Services\UserTokeService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
@@ -35,9 +39,12 @@ Route::prefix('panel')->group(function () {
 Route::post('/user/token/create', function (Request $request) {
 
     $user =  $request->user();
+    /* @var UserTokenService $tokenSerivce */
+    $tokenSerivce = App::make(UserTokenService::class);
+
     $tokenText = $request->session()->get('token');
     if (!$request->session()->has('token')) {
-        $token = $user->createToken($request->token_name, ['panel:api'],  now()->addHours(3));
+        $token = $tokenSerivce->makeToken($user);
         $tokenText = $token->plainTextToken;
         $request->session()->put('token', $tokenText);
     }
