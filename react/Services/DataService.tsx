@@ -1,6 +1,7 @@
 import AppContext from '@app/AppContext';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import React, { useCallback, useContext, useReducer } from 'react';
+import { ReadVResult } from 'fs';
+import React, { Reducer, useCallback, useContext, useReducer } from 'react';
 
 enum ActionType {
     request = "request",
@@ -14,11 +15,19 @@ export enum Status {
 }
 
 
+type Response<T> = {
+    data: T,
+    status: number,
+    statusText: string,
+    headers: {[key :string]: string},
+    config: AxiosRequestConfig,
+    request: any
+}
 
-type InitialState = {
+export type InitialState<Result> = {
     status?: Status,
     url?: string,
-    result?: any | null
+    result?: Response<Result> | null
 };
 
 type Action = {
@@ -79,7 +88,7 @@ async function useFetchData(url: string, action: Action) {
     return result;
 }
 
-function reducer(state: InitialState, action: Action): InitialState {
+function reducer<T>(state: InitialState<T>, action: Action): InitialState<T> {
 
     let type: ActionType = action.type || ActionType.request;
 
@@ -130,12 +139,12 @@ function dispatchMiddleware(url: string, dispatch: React.Dispatch<Action>) {
 }
 
 
-function useDataService(url: string, ...middlewares: ((action: React.Dispatch<Action>) => (action: Action) => Promise<void>)[]) {
+function useDataService<T>(url: string, ...middlewares: ((action: React.Dispatch<Action>) => (action: Action) => Promise<void>)[]):[result:InitialState<T>, dipath:React.Dispatch<Action>] {
 
-    let params: InitialState = {
+    let params:InitialState<T> = {
         url,
     };
-    const [result, dispatch] = useReducer(
+    const [result, dispatch] = useReducer<(state: InitialState<T>, action: Action) => InitialState<T>>(
         reducer,
         params
     );

@@ -1,8 +1,9 @@
 import AppContext from "@app/AppContext";
 import { LayoutSlotProps } from "@app/Layout"
 import React, { useCallback, useContext } from "react"
-import Tabs from "@app/Component/Pages/Account/Tabs";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import Tabs from "@app/Component/UI/Tabs";
+import { useNavigate, useParams } from "react-router-dom";
+import { RouteNames } from "@app/Enum/Route";
 
 const Center: React.FC<LayoutSlotProps> = ({ children }) => {
 
@@ -16,9 +17,9 @@ const Center: React.FC<LayoutSlotProps> = ({ children }) => {
         active,
         onTab: useCallback((selected: number) => {
             if (selected == 0) {
-                navigate('/panel/account/profile');
+                navigate(RouteNames.PANEL_USER_PROFILE);
             } else {
-                navigate('/panel/account/settings');
+                navigate(RouteNames.PANEL_USER_SETTINGS);
             }
         }, [active]),
         tabs: [

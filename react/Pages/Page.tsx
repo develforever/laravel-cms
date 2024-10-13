@@ -57,31 +57,13 @@ export function getRoutes(): RouteObject[] {
     ];
 };
 
-
-export type PageResource = {
-    autor_user_id: number,
-    created_at: string,
-    id: number,
-    updated_at: string,
-    title: string
-}
-
 function Page() {
 
     const context = useContext(AppContext);
-    const [state, dispatch] = useDataService(ApiEndpointNames.PAGE_LIST);
-
-    useEffect(() => {
-        dispatch({})
-    }, []);
-
-
-    const data: PageResource[] = state.result?.data?.data;
-
 
     return <div className="h-100">
         <Layout className="h-100">
-            <Center data-slot={SlotNames.Center} data={data} >
+            <Center data-slot={SlotNames.Center} >
                 <button onClick={() => { context.state({ user: { username: "username test" } }) }}>set</button>
             </Center>
         </Layout>

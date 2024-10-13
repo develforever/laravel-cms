@@ -1,26 +1,24 @@
-import ListItem from "@app/Component/Pages/Page/ListItem";
+import Table from "@app/Component/UI/Table/Table";
+import { ApiEndpointNames, ApiPageResource, ApiResponsePageList } from "@app/Enum/Api";
 import { LayoutSlotProps } from "@app/Layout"
-import { PageResource } from "@app/Pages/Page";
-import React from "react"
-import { Link } from "react-router-dom"
-
-type CenterProps = {
-    data: any
-} & LayoutSlotProps;
+import useDataService from "@app/Services/DataService";
+import React, { useEffect } from "react"
 
 
-const Center: React.FC<LayoutSlotProps & CenterProps> = ({ children, data }) => {
+const Center: React.FC<LayoutSlotProps> = ({ }) => {
 
-    console.log("page center render");
-    let items = data?.map((e: PageResource, i: number) => {
-        return <ListItem key={i} page={e}></ListItem>
-    });
+    const [state, dispatch] = useDataService<ApiResponsePageList>(ApiEndpointNames.PAGE_LIST);
 
-    return <div className="overflow-y-hidden">
-        <div>
-            {items}
-        </div>
-    </div>
+    useEffect(() => {
+        dispatch({})
+    }, []);
+
+
+    const data: ApiPageResource[] | undefined = state.result?.data?.data;
+
+    return (<div className="overflow-y-hidden">
+        <Table rows={data}></Table>
+    </div>)
 
 }
 

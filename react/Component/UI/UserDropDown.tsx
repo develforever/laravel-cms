@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import Button from "./Button";
 import AppContext from "@app/AppContext";
 import DropDown from "./DropDown";
@@ -12,12 +12,16 @@ function Comp(props: { children?: any }) {
     const { user } = useContext(AppContext);
     const redirect = useRedirect(RouteNames.LOGOUT);
 
+    let logout = useCallback(()=>{
+        redirect();
+    }, [user]);
+
     if (user) {
         return <DropDown title={user?.username}>
             <li><h6 className="dropdown-header">Account</h6></li>
-            <li><Link className="dropdown-item" to="/panel/account/profile">Profile</Link></li>
-            <li><Link className="dropdown-item" to="/panel/account/settings">Settings</Link></li>
-            <li><a href="#" className="dropdown-item" onClick={()=> globalThis.location.assign('/logout')}>Logout</a></li>
+            <li><Link className="dropdown-item" to={RouteNames.PANEL_USER_PROFILE}>Profile</Link></li>
+            <li><Link className="dropdown-item" to={RouteNames.PANEL_USER_SETTINGS}>Settings</Link></li>
+            <li><a href="#" className="dropdown-item" onClick={logout}>Logout</a></li>
         </DropDown>
     } else if (props.children) {
         return props.children;
