@@ -59,7 +59,7 @@ function useUserAuth() {
         console.debug('user:auth:ue:user');
         if (stateUser.status === Status.success) {
             new Observable((s) => {
-                s.next(stateUser.result.data);
+                s.next(stateUser.result?.data?.data);
             }).pipe(map((u) => ({ username: u.email })))
                 .subscribe((u) => {
                     context.dispatch({ user: u });

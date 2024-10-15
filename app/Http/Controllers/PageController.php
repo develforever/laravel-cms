@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
 
-        return new PageCollection(Page::paginate());
+        return new PageCollection(Page::paginate(4));
     }
 
     /**

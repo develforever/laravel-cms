@@ -19,7 +19,7 @@ class PageCollection extends ResourceCollection
         return [
             'data' => $this->collection,
             'links' => [
-                'self' => 'link-value',
+                'self' => route('page.list', null, false),
             ],
         ];
     }

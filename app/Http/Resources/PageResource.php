@@ -15,11 +15,18 @@ class PageResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'autor_user_id' => $this->autor_user_id,
-            'title' => $this->title,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'data' => [
+                'id' => $this->id,
+                'autor_user_id' => $this->autor_user_id,
+                'title' => $this->title,
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at,
+            ],
+            'links' => [
+                'show' => route('page.show', ['page' => $this->id],false),
+                'store' => route('page.store', ['page' => $this->id], false),
+                'destroy' => route('page.destroy', ['page' => $this->id], false),
+            ],
         ];
     }
 }

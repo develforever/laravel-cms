@@ -1,16 +1,11 @@
 <?php
 
-use App\Enums\TokenAbilities;
+
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PageController;
 use App\Http\Controllers\PanelController;
 use App\Services\UserTokenService;
-use App\Services\UserTokeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*

@@ -9,7 +9,7 @@ class UserTokenService {
     
     public function makeToken(User $user){
 
-        $token = $user->createToken('panel',  [TokenAbilities::MAIN_PANEL_API->value],  now()->addHours(3));
+        $token = $user->createToken('panel',  [],  now()->addHours(3));
 
         return $token;
     }

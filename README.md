@@ -14,4 +14,10 @@ I create this project for my portfolio. My work and interests are all about prog
 As a run environment is used docker (docker compose), FrakenPHP and Mysql.
 
 
+## Tokens
+
+Update token abilities to `<user_id>` and `<token_plain_text>` and add all possible.
+```
+php artisan app:user-token-abilities <user_id> '<token_plain_text>' --abl=all
+```
 

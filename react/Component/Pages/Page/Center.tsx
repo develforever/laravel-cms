@@ -16,8 +16,13 @@ const Center: React.FC<LayoutSlotProps> = ({ }) => {
 
     const data: ApiPageResource[] | undefined = state.result?.data?.data;
 
+    const cols = {
+        id: "Id",
+        title: "Title",
+    };
+
     return (<div className="overflow-y-hidden">
-        <Table rows={data}></Table>
+        <Table cols={cols} rows={data}></Table>
     </div>)
 
 }
