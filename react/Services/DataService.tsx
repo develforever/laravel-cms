@@ -16,12 +16,13 @@ export enum Status {
 
 
 type Response<T> = {
-    data: T,
-    status: number,
-    statusText: string,
-    headers: {[key :string]: string},
-    config: AxiosRequestConfig,
-    request: any
+    data: T;
+    status: number;
+    statusText: string;
+    headers: {[key :string]: string};
+    config: AxiosRequestConfig;
+    request: any;
+    response: any;
 }
 
 export type InitialState<Result> = {

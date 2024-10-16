@@ -16,6 +16,16 @@ export type ApiPageResource = {
     title: string
 }
 
+export type ApiUserResource = {
+    id: number;
+    name: string;
+    email: string;
+    email_verified_at: string;
+    created_at: string;
+    updated_at: string;
+    deleted_at: string;
+}
+
 export type ApiResponsePageList = {
     data: ApiPageResource[],
     links: {
@@ -35,4 +45,18 @@ export type ApiResponsePageList = {
         to: number,
         total: number
     }
+};
+
+export type ApiResponseUser = {
+    data: ApiUserResource,
+    links: {
+        [key: string]: string
+    },
+    meta: {
+        [key: string]: string
+    }
+};
+
+export type ApiResponseToken = {
+    token: string
 };

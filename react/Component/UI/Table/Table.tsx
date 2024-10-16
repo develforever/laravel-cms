@@ -5,16 +5,19 @@ type TableProps = {
     rows?: any[],
     cols?: { [key: string]: string },
     showActions?: boolean,
+    onView?: (row: any) => void
 };
 
-const Table: React.FC<TableProps> = ({ rows, cols = undefined, showActions = true }) => {
+const Table: React.FC<TableProps> = ({ rows, cols = undefined, showActions = true, onView = undefined }) => {
 
     if (!rows) {
         return <></>
     }
 
-    const onClickView = useCallback((e:MouseEvent, r:any) => {
-        console.log(r);
+    const onClickView = useCallback((e:any, r: any) => {
+        if(onView){
+            onView(r);
+        }
     }, []);
 
 
@@ -38,7 +41,7 @@ const Table: React.FC<TableProps> = ({ rows, cols = undefined, showActions = tru
 
         if (showActions) {
             cells.push(<td key={-1}>
-                <a className="btn btn-primary" onClick={e=>onClickView(e, r)}>View</a>
+                <a className="btn btn-primary" onClick={e => onClickView(e, r)}>View</a>
             </td>);
         }
 

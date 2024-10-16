@@ -1,18 +1,14 @@
 import { LayoutSlotProps } from "@app/Layout"
 import React from "react"
 import Card from "@app/Component/UI/Card"
-import { Link } from "react-router-dom"
-import { PageResource } from "@app/Pages/Page"
+import { useLocation } from "react-router-dom"
 
 const Center: React.FC<LayoutSlotProps> = ({ children }) => {
 
-    let page: PageResource = {
-        id: 1,
-        title: "test"
-    } as PageResource;
+    const location = useLocation();
 
-    return <Card title="Edit page">
-        <p>{page.title}</p>
+    return <Card title={`#${location.state.row.data.id}, ${location.state.row.data.title}`}>
+        {JSON.stringify(location.state.row.data)}
     </Card>
 
 }

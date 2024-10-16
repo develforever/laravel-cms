@@ -16,6 +16,7 @@ export type AppState = {
     title?: string,
     user: null | User,
     modals?: ModalConfig[],
+    links?: { [key: string]: string },
     routes: RouteObject[],
     token?: string,
     xcsrf?: string,

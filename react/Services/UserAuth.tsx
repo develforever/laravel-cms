@@ -1,10 +1,9 @@
 import AppContext from "@app/AppContext";
-import { ApiTokenName } from "@app/Enum/Api";
+import { ApiResponseToken, ApiResponseUser, ApiTokenName } from "@app/Enum/Api";
 import { RouteNames } from "@app/Enum/Route";
 import useRedirect from "@app/hooks/useRedirect";
 import useDataService, { Status } from "@app/Services/DataService";
 import { useContext, useEffect, useRef } from "react";
-import { map, Observable } from "rxjs";
 
 
 function useUserAuth() {
@@ -12,8 +11,8 @@ function useUserAuth() {
     console.debug('user:auth');
 
     const context = useContext(AppContext);
-    const [stateToken, dispatchTokenCreate] = useDataService('/user/token/create');
-    const [stateUser, dispatchUser] = useDataService('/api/user');
+    const [stateToken, dispatchTokenCreate] = useDataService<ApiResponseToken>('/user/token/create');
+    const [stateUser, dispatchUser] = useDataService<ApiResponseUser>('/api/user');
     const redirect = useRedirect(RouteNames.HOME);
 
     useEffect(() => {
@@ -28,10 +27,10 @@ function useUserAuth() {
         console.debug('user:auth:ue:token', stateToken.status);
 
         if (stateToken.status === Status.success) {
-            context.dispatch({ token: stateToken.result.data.token });
+            context.dispatch({ token: stateToken.result?.data.token });
         }
         else if (stateToken.status === Status.error) {
-            if (stateToken.result.response.status === 401) {
+            if (stateToken.result?.response?.status === 401) {
                 redirect();
             }
 
@@ -56,21 +55,22 @@ function useUserAuth() {
 
     useEffect(() => {
 
-        console.debug('user:auth:ue:user');
         if (stateUser.status === Status.success) {
-            new Observable((s) => {
-                s.next(stateUser.result?.data?.data);
-            }).pipe(map((u) => ({ username: u.email })))
-                .subscribe((u) => {
-                    context.dispatch({ user: u });
-                });
+
+            let user = stateUser.result?.data.data;
+            if (user) {
+                // @ts-ignore
+                user.username = stateUser.result?.data?.data?.email;
+            }
+            let links = stateUser.result?.data.links;
+            context.dispatch({ user, links });
         }
 
     }, [stateUser.status]);
 
     useEffect(() => {
         if (context.token && !context.isAuthenticated()) {
-            dispatchUser({ });
+            dispatchUser({});
         }
     }, [
         context.token
