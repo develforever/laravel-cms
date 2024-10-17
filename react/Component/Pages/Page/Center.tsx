@@ -3,34 +3,28 @@ import { ApiEndpointNames, ApiPageResource, ApiResponsePageList } from "@app/Enu
 import { RouteNames } from "@app/Enum/Route";
 import useNavigate from "@app/hooks/useNavigate";
 import { LayoutSlotProps } from "@app/Layout"
-import useDataService from "@app/Services/DataService";
-import React, { useEffect } from "react"
+import useDataService, { Status } from "@app/Services/DataService";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useLocation, useParams } from "react-router";
+import { useSearchParams } from "react-router-dom";
 
 
 const Center: React.FC<LayoutSlotProps> = ({ }) => {
 
-    const [state, dispatch] = useDataService<ApiResponsePageList>(ApiEndpointNames.PAGE_LIST);
+    console.debug('page list render');
+
     const navigate = useNavigate(RouteNames.PANEL_PAGES_VIEW);
 
-    useEffect(() => {
-        dispatch({})
-    }, []);
-
-
-    const data: ApiPageResource[] | undefined = state.result?.data?.data;
-
-    const cols = {
-        id: "Id",
-        title: "Title",
-    };
-
     return (<div className="overflow-y-hidden">
-        <Table
+        <Table<ApiPageResource, ApiResponsePageList>
+            url={ApiEndpointNames.PAGE_LIST}
             onView={(row) => {
                 navigate({ id: row.data.id }, { state: { row } });
             }}
-            cols={cols}
-            rows={data}></Table>
+            cols={{
+                id: "Id",
+                title: "Title",
+            }}></Table>
     </div>)
 
 }

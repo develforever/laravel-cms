@@ -14,8 +14,11 @@ export enum Status {
     error = "error",
 }
 
+export interface ResponseDataInterface {
+    
+}
 
-type Response<T> = {
+type Response<T extends ResponseDataInterface> = {
     data: T;
     status: number;
     statusText: string;
@@ -25,7 +28,7 @@ type Response<T> = {
     response: any;
 }
 
-export type InitialState<Result> = {
+export type InitialState<Result extends ResponseDataInterface> = {
     status?: Status,
     url?: string,
     result?: Response<Result> | null
@@ -41,6 +44,7 @@ type Action = {
     timeout?: number,
     headers?: {},
     token?: string,
+    params:any,
 };
 
 
@@ -70,6 +74,7 @@ async function useFetchData(url: string, action: Action) {
     let tmp: AxiosRequestConfig = {
         url: url,
         data: action.data,
+        params: action.params,
         method: action.data ? action.method || "POST" : "GET"
     };
 
@@ -89,7 +94,7 @@ async function useFetchData(url: string, action: Action) {
     return result;
 }
 
-function reducer<T>(state: InitialState<T>, action: Action): InitialState<T> {
+function reducer<T extends ResponseDataInterface>(state: InitialState<T>, action: Action): InitialState<T> {
 
     let type: ActionType = action.type || ActionType.request;
 
@@ -140,7 +145,7 @@ function dispatchMiddleware(url: string, dispatch: React.Dispatch<Action>) {
 }
 
 
-function useDataService<T>(url: string, ...middlewares: ((action: React.Dispatch<Action>) => (action: Action) => Promise<void>)[]):[result:InitialState<T>, dipath:React.Dispatch<Action>] {
+function useDataService<T extends ResponseDataInterface>(url: string, ...middlewares: ((action: React.Dispatch<Action>) => (action: Action) => Promise<void>)[]):[result:InitialState<T>, dipath:React.Dispatch<Action>] {
 
     let params:InitialState<T> = {
         url,

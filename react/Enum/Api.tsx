@@ -1,3 +1,4 @@
+import { ResponseDataInterface } from "@app/Services/DataService";
 
 
 export const ApiTokenName = 'panel:api';
@@ -7,23 +8,33 @@ export enum ApiEndpointNames {
     PAGE_LIST = "/api/page/list",
 };
 
-
-export type ApiPageResource = {
-    autor_user_id: number,
-    created_at: string,
-    updated_at: string,
-    id: number,
-    title: string
+export interface ApiResource extends ResponseDataInterface {
+    data: { [key: string]: string | number },
+    links: { [key: string]: string }
 }
 
-export type ApiUserResource = {
-    id: number;
-    name: string;
-    email: string;
-    email_verified_at: string;
-    created_at: string;
-    updated_at: string;
-    deleted_at: string;
+export interface ApiPageResource extends ApiResource {
+    data: {
+        autor_user_id: number,
+        created_at: string,
+        updated_at: string,
+        id: number,
+        title: string
+    },
+    links: { [key: string]: string }
+}
+
+export interface ApiUserResource extends ApiResource {
+    data: {
+        id: number;
+        name: string;
+        email: string;
+        email_verified_at: string;
+        created_at: string;
+        updated_at: string;
+        deleted_at: string;
+    },
+    links: { [key: string]: string }
 }
 
 export type ApiResponsePageList = {
