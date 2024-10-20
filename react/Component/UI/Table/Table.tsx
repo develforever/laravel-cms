@@ -14,7 +14,7 @@ interface TableProps<D, R> {
 
 //   <Table2<ApiPageResource,ApiResponsePageList>></Table2>
 
-const Table = <D, R extends ResponseDataInterface,>({
+const Table = <D extends ResponseDataInterface, R extends ResponseDataInterface,>({
     url = undefined,
     showActions = true,
     cols = {},
@@ -60,6 +60,7 @@ const Table = <D, R extends ResponseDataInterface,>({
 
     useEffect(() => {
         if (state.status === Status.success) {
+            // @ts-ignore
             let last: number = state.result?.data?.meta?.last_page as number;
             lastPage.current = last;
         }
@@ -96,7 +97,7 @@ const Table = <D, R extends ResponseDataInterface,>({
         });
     }, []);
 
-    const firstRow = data && data.length > 0 ? data[0] : {};
+    const firstRow:D = data && data.length > 0 ? data[0] : {} as D;
     const columnNames = cols ? Object.keys(cols) : Object.keys(firstRow.data);
     const columnLabels = cols ? cols : {};
 

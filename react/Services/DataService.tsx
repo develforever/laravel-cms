@@ -15,14 +15,14 @@ export enum Status {
 }
 
 export interface ResponseDataInterface {
-    
+    data: any
 }
 
 type Response<T extends ResponseDataInterface> = {
     data: T;
     status: number;
     statusText: string;
-    headers: {[key :string]: string};
+    headers: { [key: string]: string };
     config: AxiosRequestConfig;
     request: any;
     response: any;
@@ -44,7 +44,7 @@ type Action = {
     timeout?: number,
     headers?: {},
     token?: string,
-    params?:any,
+    params?: any,
 };
 
 
@@ -53,7 +53,7 @@ let apiClient: AxiosInstance | null = null;
 export function useService() {
 
     const context = useContext(AppContext);
-    
+
     apiClient = axios.create({
         baseURL: '/',
         timeout: 1000,
@@ -145,9 +145,9 @@ function dispatchMiddleware(url: string, dispatch: React.Dispatch<Action>) {
 }
 
 
-function useDataService<T extends ResponseDataInterface>(url: string, ...middlewares: ((action: React.Dispatch<Action>) => (action: Action) => Promise<void>)[]):[result:InitialState<T>, dipath:React.Dispatch<Action>] {
+function useDataService<T extends ResponseDataInterface>(url: string, ...middlewares: ((action: React.Dispatch<Action>) => (action: Action) => Promise<void>)[]): [result: InitialState<T>, dipath: React.Dispatch<Action>] {
 
-    let params:InitialState<T> = {
+    let params: InitialState<T> = {
         url,
     };
     const [result, dispatch] = useReducer<(state: InitialState<T>, action: Action) => InitialState<T>>(
