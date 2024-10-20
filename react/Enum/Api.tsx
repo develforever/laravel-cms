@@ -10,7 +10,8 @@ export enum ApiEndpointNames {
 
 export interface ApiResource extends ResponseDataInterface {
     data: { [key: string]: string | number },
-    links: { [key: string]: string }
+    links?: { [key: string]: string }
+    meta?: { [key: string]: string }
 }
 
 export interface ApiPageResource extends ApiResource {
@@ -21,20 +22,19 @@ export interface ApiPageResource extends ApiResource {
         id: number,
         title: string
     },
-    links: { [key: string]: string }
 }
 
 export interface ApiUserResource extends ApiResource {
     data: {
         id: number;
         name: string;
+        role: string;
         email: string;
         email_verified_at: string;
         created_at: string;
         updated_at: string;
         deleted_at: string;
     },
-    links: { [key: string]: string }
 }
 
 export type ApiResponsePageList = {

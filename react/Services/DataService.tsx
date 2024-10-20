@@ -44,7 +44,7 @@ type Action = {
     timeout?: number,
     headers?: {},
     token?: string,
-    params:any,
+    params?:any,
 };
 
 

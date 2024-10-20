@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Roles;
 use App\Enums\TokenAbilities;
 use App\Http\Controllers\PageController;
 use Illuminate\Http\Request;
@@ -40,6 +41,9 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
                 'path' => route('page.destroy', ['page' => ':id'], false),
                 'method' => 'DELETE',
             ],
+        ],
+        'meta'=>[
+            'token_abilities'=> Roles::toTokenAbility($request->user()->role),
         ],
     ];
 });

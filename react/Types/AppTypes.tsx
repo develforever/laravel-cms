@@ -3,6 +3,7 @@ import { Subject } from "rxjs"
 
 export type User = {
     username: string
+    role: string,
 }
 export type ModalConfig = {
     // todo maybe uuid type

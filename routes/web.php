@@ -39,6 +39,7 @@ Route::post('/user/token/create', function (Request $request) {
 
     $tokenText = $request->session()->get('token');
     if (!$request->session()->has('token')) {
+
         $token = $tokenSerivce->makeToken($user);
         $tokenText = $token->plainTextToken;
         $request->session()->put('token', $tokenText);

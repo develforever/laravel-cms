@@ -16,8 +16,10 @@ function Comp(props: { children?: any }) {
         redirect();
     }, [user]);
 
+    let title = `${user?.username} (${user?.role})`;
+
     if (user) {
-        return <DropDown title={user?.username}>
+        return <DropDown title={ title }>
             <li><h6 className="dropdown-header">Account</h6></li>
             <li><Link className="dropdown-item" to={RouteNames.PANEL_USER_PROFILE}>Profile</Link></li>
             <li><Link className="dropdown-item" to={RouteNames.PANEL_USER_SETTINGS}>Settings</Link></li>
